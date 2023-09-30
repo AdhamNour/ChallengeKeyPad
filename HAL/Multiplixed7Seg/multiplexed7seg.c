@@ -12,6 +12,8 @@
  *******************************************************************************/
 #include "multiplexed7seg.h"
 #include "util/delay.h"
+#include "../../MCAL/Timer2/timer2.h"
+static uint8 _num=55, switch_count = 0;
 /*
  * Description:
  * takes a digit and display it on one of the seven segs
@@ -176,6 +178,18 @@ static void Eta32mini_SevenSegment_Display(unsigned char value) {
 	}
 }
 
+static void displayNumber(void) {
+	if (switch_count & 1) {
+		GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN);
+		GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1);
+		Eta32mini_SevenSegment_Display(_num % 10);
+	} else {
+		GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN);
+		GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1);
+		Eta32mini_SevenSegment_Display(_num / 10);
+	}
+}
+
 /*
  * Description:
  * The functions displays the output on the seven segement
@@ -183,17 +197,10 @@ static void Eta32mini_SevenSegment_Display(unsigned char value) {
  */
 
 void MULTIPLEXED7SEG_displayNumber(uint8 num) {
-	GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN);
-	GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1);
-	Eta32mini_SevenSegment_Display(num / 10);
-
-	_delay_ms(60);
-	GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN);
-	GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1);
-	Eta32mini_SevenSegment_Display(num % 10);
-
-	_delay_ms(60);
-
+	if(num<=99) _num=num;
+	else{
+		/*Do nothing*/
+	}
 }
 
 /*
@@ -204,9 +211,15 @@ void MULTIPLEXED7SEG_init() {
 	/*
 	 * Intializing the GPIO for the seven segements
 	 */
-	GPIO_setupPortDirection(SEVEN_SEG_OUTPUT_PORT, PORT_OUTPUT); 											/*declaring the seven seg port as output port */
-	GPIO_setupPinDirection(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN,PIN_OUTPUT);					/*declaring the first control pin as output pin*/
-	GPIO_setupPinDirection(SEVEN_SEG_CONTROL_PORT,SEVEN_SEG_CONTROL_START_PIN + 1, PIN_OUTPUT);				/*declaring the second control pin as output pin*/
-	GPIO_writePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN,LOGIC_HIGH);							/*initializing the first controll pin to be LOGIC_HIGH*/
-	GPIO_writePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1,LOGIC_LOW);						/*initializing the second controll pin to be LOGIC_LOW*/
+	GPIO_setupPortDirection(SEVEN_SEG_OUTPUT_PORT, PORT_OUTPUT); /*declaring the seven seg port as output port */
+	GPIO_setupPinDirection(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN,
+			PIN_OUTPUT); /*declaring the first control pin as output pin*/
+	GPIO_setupPinDirection(SEVEN_SEG_CONTROL_PORT,
+			SEVEN_SEG_CONTROL_START_PIN + 1, PIN_OUTPUT); /*declaring the second control pin as output pin*/
+	GPIO_writePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN,
+			LOGIC_HIGH); /*initializing the first controll pin to be LOGIC_HIGH*/
+	GPIO_writePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1,
+			LOGIC_LOW); /*initializing the second controll pin to be LOGIC_LOW*/
+	/*Timer2 Setup*/
+	TIMER2_startTimer2(1,displayNumber);
 }

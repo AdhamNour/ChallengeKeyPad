@@ -21,6 +21,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Application \
+HAL/Keypad \
 HAL/Multiplixed7Seg \
 MCAL/GPIO \
 MCAL/Timer2 \

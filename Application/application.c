@@ -12,6 +12,8 @@
  *******************************************************************************/
 #include "application.h"
 #include "../HAL/Multiplixed7Seg/multiplexed7seg.h"
+#include "../HAL/Keypad/Keypad.h"
+
 
 /*
  * Description:
@@ -20,6 +22,7 @@
 
 void APPLICATION_setup(){
 	MULTIPLEXED7SEG_init();
+	KEYPAD_init();
 }
 
 /*
@@ -28,5 +31,5 @@ void APPLICATION_setup(){
  */
 
 void APPLICATION_loop(){
-	MULTIPLEXED7SEG_displayNumber(60);
+	MULTIPLEXED7SEG_displayNumber(KEYPAD_getPressedKey());
 }

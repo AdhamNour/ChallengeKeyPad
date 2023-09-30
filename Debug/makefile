@@ -11,6 +11,7 @@ RM := rm -rf
 -include MCAL/Timer2/subdir.mk
 -include MCAL/GPIO/subdir.mk
 -include HAL/Multiplixed7Seg/subdir.mk
+-include HAL/Keypad/subdir.mk
 -include Application/subdir.mk
 -include subdir.mk
 -include objects.mk
