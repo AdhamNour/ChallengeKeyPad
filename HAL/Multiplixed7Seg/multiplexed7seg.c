@@ -13,7 +13,10 @@
 #include "multiplexed7seg.h"
 #include "util/delay.h"
 #include "../../MCAL/Timer2/timer2.h"
-static uint8 _num=55, switch_count = 0;
+
+#include "avr/io.h"
+
+static uint8 _num=0, switch_count = 0;
 /*
  * Description:
  * takes a digit and display it on one of the seven segs
@@ -179,6 +182,7 @@ static void Eta32mini_SevenSegment_Display(unsigned char value) {
 }
 
 static void displayNumber(void) {
+
 	if (switch_count & 1) {
 		GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN);
 		GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1);
@@ -188,6 +192,7 @@ static void displayNumber(void) {
 		GPIO_togglePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1);
 		Eta32mini_SevenSegment_Display(_num / 10);
 	}
+	switch_count++;
 }
 
 /*
@@ -197,9 +202,15 @@ static void displayNumber(void) {
  */
 
 void MULTIPLEXED7SEG_displayNumber(uint8 num) {
-	if(num<=99) _num=num;
+
+	if(num<=99)
+	{
+		_num=num;
+
+	}
 	else{
 		/*Do nothing*/
+
 	}
 }
 

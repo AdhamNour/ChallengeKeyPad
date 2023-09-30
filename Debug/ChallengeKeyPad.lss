@@ -3,33 +3,31 @@ ChallengeKeyPad.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00001c8a  00000000  00000000  00000094  2**1
+  0 .text         00001c98  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000000a  00800060  00001c8a  00001d1e  2**0
+  1 .data         00000008  00800060  00001c98  00001d2c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000006  0080006a  0080006a  00001d28  2**0
+  2 .bss          00000007  00800068  00800068  00001d34  2**0
                   ALLOC
-  3 .stab         00001b24  00000000  00000000  00001d28  2**2
+  3 .debug_aranges 00000278  00000000  00000000  00001d34  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      0000105d  00000000  00000000  0000384c  2**0
+  4 .debug_pubnames 00000339  00000000  00000000  00001fac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 00000140  00000000  00000000  000048a9  2**0
+  5 .debug_info   0000243d  00000000  00000000  000022e5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_pubnames 00000170  00000000  00000000  000049e9  2**0
+  6 .debug_abbrev 000012bc  00000000  00000000  00004722  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_info   00001c49  00000000  00000000  00004b59  2**0
+  7 .debug_line   0000225c  00000000  00000000  000059de  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00000eeb  00000000  00000000  000067a2  2**0
+  8 .debug_frame  00000310  00000000  00000000  00007c3c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   00000dad  00000000  00000000  0000768d  2**0
+  9 .debug_str    000005c8  00000000  00000000  00007f4c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_frame  00000160  00000000  00000000  0000843c  2**2
+ 10 .debug_loc    000007ce  00000000  00000000  00008514  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_str    0000028d  00000000  00000000  0000859c  2**0
+ 11 .debug_macinfo 00013b7c  00000000  00000000  00008ce2  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    000007ce  00000000  00000000  00008829  2**0
-                  CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 00000050  00000000  00000000  00008ff7  2**0
+ 12 .debug_ranges 00000158  00000000  00000000  0001c85e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,38 +63,38 @@ Disassembly of section .text:
       5c:	de bf       	out	0x3e, r29	; 62
       5e:	cd bf       	out	0x3d, r28	; 61
 
-00000060 <__do_copy_data>:
+00000060 <__do_clear_bss>:
       60:	10 e0       	ldi	r17, 0x00	; 0
-      62:	a0 e6       	ldi	r26, 0x60	; 96
+      62:	a8 e6       	ldi	r26, 0x68	; 104
       64:	b0 e0       	ldi	r27, 0x00	; 0
-      66:	ea e8       	ldi	r30, 0x8A	; 138
-      68:	fc e1       	ldi	r31, 0x1C	; 28
-      6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+      66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
 
-0000006c <.do_copy_data_loop>:
-      6c:	05 90       	lpm	r0, Z+
-      6e:	0d 92       	st	X+, r0
+00000068 <.do_clear_bss_loop>:
+      68:	1d 92       	st	X+, r1
 
-00000070 <.do_copy_data_start>:
-      70:	aa 36       	cpi	r26, 0x6A	; 106
-      72:	b1 07       	cpc	r27, r17
-      74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+0000006a <.do_clear_bss_start>:
+      6a:	af 36       	cpi	r26, 0x6F	; 111
+      6c:	b1 07       	cpc	r27, r17
+      6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
 
-00000076 <__do_clear_bss>:
-      76:	10 e0       	ldi	r17, 0x00	; 0
-      78:	aa e6       	ldi	r26, 0x6A	; 106
-      7a:	b0 e0       	ldi	r27, 0x00	; 0
-      7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+00000070 <__do_copy_data>:
+      70:	10 e0       	ldi	r17, 0x00	; 0
+      72:	a0 e6       	ldi	r26, 0x60	; 96
+      74:	b0 e0       	ldi	r27, 0x00	; 0
+      76:	e8 e9       	ldi	r30, 0x98	; 152
+      78:	fc e1       	ldi	r31, 0x1C	; 28
+      7a:	02 c0       	rjmp	.+4      	; 0x80 <.do_copy_data_start>
 
-0000007e <.do_clear_bss_loop>:
-      7e:	1d 92       	st	X+, r1
+0000007c <.do_copy_data_loop>:
+      7c:	05 90       	lpm	r0, Z+
+      7e:	0d 92       	st	X+, r0
 
-00000080 <.do_clear_bss_start>:
-      80:	a0 37       	cpi	r26, 0x70	; 112
+00000080 <.do_copy_data_start>:
+      80:	a8 36       	cpi	r26, 0x68	; 104
       82:	b1 07       	cpc	r27, r17
-      84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-      86:	0e 94 f7 0d 	call	0x1bee	; 0x1bee <main>
-      8a:	0c 94 43 0e 	jmp	0x1c86	; 0x1c86 <_exit>
+      84:	d9 f7       	brne	.-10     	; 0x7c <.do_copy_data_loop>
+      86:	0e 94 fe 0d 	call	0x1bfc	; 0x1bfc <main>
+      8a:	0c 94 4a 0e 	jmp	0x1c94	; 0x1c94 <_exit>
 
 0000008e <__bad_interrupt>:
       8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -148,7 +146,7 @@ Disassembly of section .text:
       ec:	b0 e0       	ldi	r27, 0x00	; 0
       ee:	eb e7       	ldi	r30, 0x7B	; 123
       f0:	f0 e0       	ldi	r31, 0x00	; 0
-      f2:	0c 94 0c 0e 	jmp	0x1c18	; 0x1c18 <__prologue_saves__>
+      f2:	0c 94 13 0e 	jmp	0x1c26	; 0x1c26 <__prologue_saves__>
       f6:	dc 01       	movw	r26, r24
       f8:	2b 01       	movw	r4, r22
       fa:	fa 01       	movw	r30, r20
@@ -473,14 +471,14 @@ Disassembly of section .text:
      378:	cd b7       	in	r28, 0x3d	; 61
      37a:	de b7       	in	r29, 0x3e	; 62
      37c:	e2 e1       	ldi	r30, 0x12	; 18
-     37e:	0c 94 28 0e 	jmp	0x1c50	; 0x1c50 <__epilogue_restores__>
+     37e:	0c 94 2f 0e 	jmp	0x1c5e	; 0x1c5e <__epilogue_restores__>
 
 00000382 <__subsf3>:
      382:	a0 e2       	ldi	r26, 0x20	; 32
      384:	b0 e0       	ldi	r27, 0x00	; 0
      386:	e7 ec       	ldi	r30, 0xC7	; 199
      388:	f1 e0       	ldi	r31, 0x01	; 1
-     38a:	0c 94 18 0e 	jmp	0x1c30	; 0x1c30 <__prologue_saves__+0x18>
+     38a:	0c 94 1f 0e 	jmp	0x1c3e	; 0x1c3e <__prologue_saves__+0x18>
      38e:	69 83       	std	Y+1, r22	; 0x01
      390:	7a 83       	std	Y+2, r23	; 0x02
      392:	8b 83       	std	Y+3, r24	; 0x03
@@ -518,14 +516,14 @@ Disassembly of section .text:
      3d8:	0e 94 fd 03 	call	0x7fa	; 0x7fa <__pack_f>
      3dc:	a0 96       	adiw	r28, 0x20	; 32
      3de:	e6 e0       	ldi	r30, 0x06	; 6
-     3e0:	0c 94 34 0e 	jmp	0x1c68	; 0x1c68 <__epilogue_restores__+0x18>
+     3e0:	0c 94 3b 0e 	jmp	0x1c76	; 0x1c76 <__epilogue_restores__+0x18>
 
 000003e4 <__addsf3>:
      3e4:	a0 e2       	ldi	r26, 0x20	; 32
      3e6:	b0 e0       	ldi	r27, 0x00	; 0
      3e8:	e8 ef       	ldi	r30, 0xF8	; 248
      3ea:	f1 e0       	ldi	r31, 0x01	; 1
-     3ec:	0c 94 18 0e 	jmp	0x1c30	; 0x1c30 <__prologue_saves__+0x18>
+     3ec:	0c 94 1f 0e 	jmp	0x1c3e	; 0x1c3e <__prologue_saves__+0x18>
      3f0:	69 83       	std	Y+1, r22	; 0x01
      3f2:	7a 83       	std	Y+2, r23	; 0x02
      3f4:	8b 83       	std	Y+3, r24	; 0x03
@@ -559,14 +557,14 @@ Disassembly of section .text:
      432:	0e 94 fd 03 	call	0x7fa	; 0x7fa <__pack_f>
      436:	a0 96       	adiw	r28, 0x20	; 32
      438:	e6 e0       	ldi	r30, 0x06	; 6
-     43a:	0c 94 34 0e 	jmp	0x1c68	; 0x1c68 <__epilogue_restores__+0x18>
+     43a:	0c 94 3b 0e 	jmp	0x1c76	; 0x1c76 <__epilogue_restores__+0x18>
 
 0000043e <__mulsf3>:
      43e:	a0 e2       	ldi	r26, 0x20	; 32
      440:	b0 e0       	ldi	r27, 0x00	; 0
      442:	e5 e2       	ldi	r30, 0x25	; 37
      444:	f2 e0       	ldi	r31, 0x02	; 2
-     446:	0c 94 0c 0e 	jmp	0x1c18	; 0x1c18 <__prologue_saves__>
+     446:	0c 94 13 0e 	jmp	0x1c26	; 0x1c26 <__prologue_saves__>
      44a:	69 83       	std	Y+1, r22	; 0x01
      44c:	7a 83       	std	Y+2, r23	; 0x02
      44e:	8b 83       	std	Y+3, r24	; 0x03
@@ -806,14 +804,14 @@ Disassembly of section .text:
      626:	0e 94 fd 03 	call	0x7fa	; 0x7fa <__pack_f>
      62a:	a0 96       	adiw	r28, 0x20	; 32
      62c:	e2 e1       	ldi	r30, 0x12	; 18
-     62e:	0c 94 28 0e 	jmp	0x1c50	; 0x1c50 <__epilogue_restores__>
+     62e:	0c 94 2f 0e 	jmp	0x1c5e	; 0x1c5e <__epilogue_restores__>
 
 00000632 <__gtsf2>:
      632:	a8 e1       	ldi	r26, 0x18	; 24
      634:	b0 e0       	ldi	r27, 0x00	; 0
      636:	ef e1       	ldi	r30, 0x1F	; 31
      638:	f3 e0       	ldi	r31, 0x03	; 3
-     63a:	0c 94 18 0e 	jmp	0x1c30	; 0x1c30 <__prologue_saves__+0x18>
+     63a:	0c 94 1f 0e 	jmp	0x1c3e	; 0x1c3e <__prologue_saves__+0x18>
      63e:	69 83       	std	Y+1, r22	; 0x01
      640:	7a 83       	std	Y+2, r23	; 0x02
      642:	8b 83       	std	Y+3, r24	; 0x03
@@ -851,14 +849,14 @@ Disassembly of section .text:
      688:	8f ef       	ldi	r24, 0xFF	; 255
      68a:	68 96       	adiw	r28, 0x18	; 24
      68c:	e6 e0       	ldi	r30, 0x06	; 6
-     68e:	0c 94 34 0e 	jmp	0x1c68	; 0x1c68 <__epilogue_restores__+0x18>
+     68e:	0c 94 3b 0e 	jmp	0x1c76	; 0x1c76 <__epilogue_restores__+0x18>
 
 00000692 <__gesf2>:
      692:	a8 e1       	ldi	r26, 0x18	; 24
      694:	b0 e0       	ldi	r27, 0x00	; 0
      696:	ef e4       	ldi	r30, 0x4F	; 79
      698:	f3 e0       	ldi	r31, 0x03	; 3
-     69a:	0c 94 18 0e 	jmp	0x1c30	; 0x1c30 <__prologue_saves__+0x18>
+     69a:	0c 94 1f 0e 	jmp	0x1c3e	; 0x1c3e <__prologue_saves__+0x18>
      69e:	69 83       	std	Y+1, r22	; 0x01
      6a0:	7a 83       	std	Y+2, r23	; 0x02
      6a2:	8b 83       	std	Y+3, r24	; 0x03
@@ -896,14 +894,14 @@ Disassembly of section .text:
      6e8:	8f ef       	ldi	r24, 0xFF	; 255
      6ea:	68 96       	adiw	r28, 0x18	; 24
      6ec:	e6 e0       	ldi	r30, 0x06	; 6
-     6ee:	0c 94 34 0e 	jmp	0x1c68	; 0x1c68 <__epilogue_restores__+0x18>
+     6ee:	0c 94 3b 0e 	jmp	0x1c76	; 0x1c76 <__epilogue_restores__+0x18>
 
 000006f2 <__ltsf2>:
      6f2:	a8 e1       	ldi	r26, 0x18	; 24
      6f4:	b0 e0       	ldi	r27, 0x00	; 0
      6f6:	ef e7       	ldi	r30, 0x7F	; 127
      6f8:	f3 e0       	ldi	r31, 0x03	; 3
-     6fa:	0c 94 18 0e 	jmp	0x1c30	; 0x1c30 <__prologue_saves__+0x18>
+     6fa:	0c 94 1f 0e 	jmp	0x1c3e	; 0x1c3e <__prologue_saves__+0x18>
      6fe:	69 83       	std	Y+1, r22	; 0x01
      700:	7a 83       	std	Y+2, r23	; 0x02
      702:	8b 83       	std	Y+3, r24	; 0x03
@@ -941,14 +939,14 @@ Disassembly of section .text:
      748:	81 e0       	ldi	r24, 0x01	; 1
      74a:	68 96       	adiw	r28, 0x18	; 24
      74c:	e6 e0       	ldi	r30, 0x06	; 6
-     74e:	0c 94 34 0e 	jmp	0x1c68	; 0x1c68 <__epilogue_restores__+0x18>
+     74e:	0c 94 3b 0e 	jmp	0x1c76	; 0x1c76 <__epilogue_restores__+0x18>
 
 00000752 <__fixsfsi>:
      752:	ac e0       	ldi	r26, 0x0C	; 12
      754:	b0 e0       	ldi	r27, 0x00	; 0
      756:	ef ea       	ldi	r30, 0xAF	; 175
      758:	f3 e0       	ldi	r31, 0x03	; 3
-     75a:	0c 94 1c 0e 	jmp	0x1c38	; 0x1c38 <__prologue_saves__+0x20>
+     75a:	0c 94 23 0e 	jmp	0x1c46	; 0x1c46 <__prologue_saves__+0x20>
      75e:	69 83       	std	Y+1, r22	; 0x01
      760:	7a 83       	std	Y+2, r23	; 0x02
      762:	8b 83       	std	Y+3, r24	; 0x03
@@ -1024,7 +1022,7 @@ Disassembly of section .text:
      7f0:	ca 01       	movw	r24, r20
      7f2:	2c 96       	adiw	r28, 0x0c	; 12
      7f4:	e2 e0       	ldi	r30, 0x02	; 2
-     7f6:	0c 94 38 0e 	jmp	0x1c70	; 0x1c70 <__epilogue_restores__+0x20>
+     7f6:	0c 94 3f 0e 	jmp	0x1c7e	; 0x1c7e <__epilogue_restores__+0x20>
 
 000007fa <__pack_f>:
      7fa:	df 92       	push	r13
@@ -1497,7 +1495,7 @@ static void initTimer() {
      b7e:	8c 93       	st	X, r24
 	_isInit = TRUE;
      b80:	81 e0       	ldi	r24, 0x01	; 1
-     b82:	80 93 6e 00 	sts	0x006E, r24
+     b82:	80 93 6c 00 	sts	0x006C, r24
 }
      b86:	cf 91       	pop	r28
      b88:	df 91       	pop	r29
@@ -1520,11 +1518,11 @@ void TIMER2_startTimer2(uint8 time, void (*callback)(void)) {
 	_callback = callback;
      ba2:	8a 81       	ldd	r24, Y+2	; 0x02
      ba4:	9b 81       	ldd	r25, Y+3	; 0x03
-     ba6:	90 93 6b 00 	sts	0x006B, r25
-     baa:	80 93 6a 00 	sts	0x006A, r24
+     ba6:	90 93 69 00 	sts	0x0069, r25
+     baa:	80 93 68 00 	sts	0x0068, r24
 	_time = time;
      bae:	89 81       	ldd	r24, Y+1	; 0x01
-     bb0:	80 93 6d 00 	sts	0x006D, r24
+     bb0:	80 93 6b 00 	sts	0x006B, r24
 }
      bb4:	0f 90       	pop	r0
      bb6:	0f 90       	pop	r0
@@ -1558,28 +1556,28 @@ ISR(TIMER2_COMP_vect) {
      be6:	cd b7       	in	r28, 0x3d	; 61
      be8:	de b7       	in	r29, 0x3e	; 62
 	_counter++;
-     bea:	80 91 6c 00 	lds	r24, 0x006C
+     bea:	80 91 6a 00 	lds	r24, 0x006A
      bee:	8f 5f       	subi	r24, 0xFF	; 255
-     bf0:	80 93 6c 00 	sts	0x006C, r24
+     bf0:	80 93 6a 00 	sts	0x006A, r24
 	if (_counter == _time) {
-     bf4:	90 91 6c 00 	lds	r25, 0x006C
-     bf8:	80 91 6d 00 	lds	r24, 0x006D
+     bf4:	90 91 6a 00 	lds	r25, 0x006A
+     bf8:	80 91 6b 00 	lds	r24, 0x006B
      bfc:	98 17       	cp	r25, r24
      bfe:	69 f4       	brne	.+26     	; 0xc1a <__vector_4+0x5a>
 		if (_callback != NULL_PTR)
-     c00:	80 91 6a 00 	lds	r24, 0x006A
-     c04:	90 91 6b 00 	lds	r25, 0x006B
+     c00:	80 91 68 00 	lds	r24, 0x0068
+     c04:	90 91 69 00 	lds	r25, 0x0069
      c08:	00 97       	sbiw	r24, 0x00	; 0
      c0a:	29 f0       	breq	.+10     	; 0xc16 <__vector_4+0x56>
 			(*_callback)();
-     c0c:	e0 91 6a 00 	lds	r30, 0x006A
-     c10:	f0 91 6b 00 	lds	r31, 0x006B
+     c0c:	e0 91 68 00 	lds	r30, 0x0068
+     c10:	f0 91 69 00 	lds	r31, 0x0069
      c14:	09 95       	icall
 		else {
 
 		}
 		_counter = 0;
-     c16:	10 92 6c 00 	sts	0x006C, r1
+     c16:	10 92 6a 00 	sts	0x006A, r1
 	}
 
 }
@@ -2859,7 +2857,7 @@ uint8 GPIO_togglePin(uint8 port_num, uint8 pin_num){
     1410:	08 95       	ret
 
 00001412 <Eta32mini_SevenSegment_Display>:
-static uint8 _num=55, switch_count = 0;
+static uint8 _num=0, switch_count = 0;
 /*
  * Description:
  * takes a digit and display it on one of the seven segs
@@ -3415,8 +3413,9 @@ static void displayNumber(void) {
     17a0:	cf 93       	push	r28
     17a2:	cd b7       	in	r28, 0x3d	; 61
     17a4:	de b7       	in	r29, 0x3e	; 62
+
 	if (switch_count & 1) {
-    17a6:	80 91 6f 00 	lds	r24, 0x006F
+    17a6:	80 91 6e 00 	lds	r24, 0x006E
     17aa:	88 2f       	mov	r24, r24
     17ac:	90 e0       	ldi	r25, 0x00	; 0
     17ae:	81 70       	andi	r24, 0x01	; 1
@@ -3432,10 +3431,10 @@ static void displayNumber(void) {
     17c0:	67 e0       	ldi	r22, 0x07	; 7
     17c2:	0e 94 74 09 	call	0x12e8	; 0x12e8 <GPIO_togglePin>
 		Eta32mini_SevenSegment_Display(_num % 10);
-    17c6:	80 91 68 00 	lds	r24, 0x0068
+    17c6:	80 91 6d 00 	lds	r24, 0x006D
     17ca:	9a e0       	ldi	r25, 0x0A	; 10
     17cc:	69 2f       	mov	r22, r25
-    17ce:	0e 94 00 0e 	call	0x1c00	; 0x1c00 <__udivmodqi4>
+    17ce:	0e 94 07 0e 	call	0x1c0e	; 0x1c0e <__udivmodqi4>
     17d2:	89 2f       	mov	r24, r25
     17d4:	0e 94 09 0a 	call	0x1412	; 0x1412 <Eta32mini_SevenSegment_Display>
     17d8:	10 c0       	rjmp	.+32     	; 0x17fa <displayNumber+0x5c>
@@ -3449,818 +3448,826 @@ static void displayNumber(void) {
     17e4:	67 e0       	ldi	r22, 0x07	; 7
     17e6:	0e 94 74 09 	call	0x12e8	; 0x12e8 <GPIO_togglePin>
 		Eta32mini_SevenSegment_Display(_num / 10);
-    17ea:	80 91 68 00 	lds	r24, 0x0068
+    17ea:	80 91 6d 00 	lds	r24, 0x006D
     17ee:	9a e0       	ldi	r25, 0x0A	; 10
     17f0:	69 2f       	mov	r22, r25
-    17f2:	0e 94 00 0e 	call	0x1c00	; 0x1c00 <__udivmodqi4>
+    17f2:	0e 94 07 0e 	call	0x1c0e	; 0x1c0e <__udivmodqi4>
     17f6:	0e 94 09 0a 	call	0x1412	; 0x1412 <Eta32mini_SevenSegment_Display>
 	}
+	switch_count++;
+    17fa:	80 91 6e 00 	lds	r24, 0x006E
+    17fe:	8f 5f       	subi	r24, 0xFF	; 255
+    1800:	80 93 6e 00 	sts	0x006E, r24
 }
-    17fa:	cf 91       	pop	r28
-    17fc:	df 91       	pop	r29
-    17fe:	08 95       	ret
+    1804:	cf 91       	pop	r28
+    1806:	df 91       	pop	r29
+    1808:	08 95       	ret
 
-00001800 <MULTIPLEXED7SEG_displayNumber>:
+0000180a <MULTIPLEXED7SEG_displayNumber>:
  * Description:
  * The functions displays the output on the seven segement
  * the maximum number to display is 99
  */
 
 void MULTIPLEXED7SEG_displayNumber(uint8 num) {
-    1800:	df 93       	push	r29
-    1802:	cf 93       	push	r28
-    1804:	0f 92       	push	r0
-    1806:	cd b7       	in	r28, 0x3d	; 61
-    1808:	de b7       	in	r29, 0x3e	; 62
-    180a:	89 83       	std	Y+1, r24	; 0x01
-	if(num<=99) _num=num;
-    180c:	89 81       	ldd	r24, Y+1	; 0x01
-    180e:	84 36       	cpi	r24, 0x64	; 100
-    1810:	18 f4       	brcc	.+6      	; 0x1818 <MULTIPLEXED7SEG_displayNumber+0x18>
-    1812:	89 81       	ldd	r24, Y+1	; 0x01
-    1814:	80 93 68 00 	sts	0x0068, r24
+    180a:	df 93       	push	r29
+    180c:	cf 93       	push	r28
+    180e:	0f 92       	push	r0
+    1810:	cd b7       	in	r28, 0x3d	; 61
+    1812:	de b7       	in	r29, 0x3e	; 62
+    1814:	89 83       	std	Y+1, r24	; 0x01
+
+	if(num<=99)
+    1816:	89 81       	ldd	r24, Y+1	; 0x01
+    1818:	84 36       	cpi	r24, 0x64	; 100
+    181a:	18 f4       	brcc	.+6      	; 0x1822 <MULTIPLEXED7SEG_displayNumber+0x18>
+	{
+		_num=num;
+    181c:	89 81       	ldd	r24, Y+1	; 0x01
+    181e:	80 93 6d 00 	sts	0x006D, r24
+	}
 	else{
 		/*Do nothing*/
+
 	}
 }
-    1818:	0f 90       	pop	r0
-    181a:	cf 91       	pop	r28
-    181c:	df 91       	pop	r29
-    181e:	08 95       	ret
+    1822:	0f 90       	pop	r0
+    1824:	cf 91       	pop	r28
+    1826:	df 91       	pop	r29
+    1828:	08 95       	ret
 
-00001820 <MULTIPLEXED7SEG_init>:
+0000182a <MULTIPLEXED7SEG_init>:
 
 /*
  * Description:
  * initilze the sevensegs
  */
 void MULTIPLEXED7SEG_init() {
-    1820:	df 93       	push	r29
-    1822:	cf 93       	push	r28
-    1824:	cd b7       	in	r28, 0x3d	; 61
-    1826:	de b7       	in	r29, 0x3e	; 62
+    182a:	df 93       	push	r29
+    182c:	cf 93       	push	r28
+    182e:	cd b7       	in	r28, 0x3d	; 61
+    1830:	de b7       	in	r29, 0x3e	; 62
 	/*
 	 * Intializing the GPIO for the seven segements
 	 */
 	GPIO_setupPortDirection(SEVEN_SEG_OUTPUT_PORT, PORT_OUTPUT); /*declaring the seven seg port as output port */
-    1828:	80 e0       	ldi	r24, 0x00	; 0
-    182a:	6f ef       	ldi	r22, 0xFF	; 255
-    182c:	0e 94 a0 08 	call	0x1140	; 0x1140 <GPIO_setupPortDirection>
+    1832:	80 e0       	ldi	r24, 0x00	; 0
+    1834:	6f ef       	ldi	r22, 0xFF	; 255
+    1836:	0e 94 a0 08 	call	0x1140	; 0x1140 <GPIO_setupPortDirection>
 	GPIO_setupPinDirection(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN,
-    1830:	82 e0       	ldi	r24, 0x02	; 2
-    1832:	66 e0       	ldi	r22, 0x06	; 6
-    1834:	41 e0       	ldi	r20, 0x01	; 1
-    1836:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
-			PIN_OUTPUT); /*declaring the first control pin as output pin*/
-	GPIO_setupPinDirection(SEVEN_SEG_CONTROL_PORT,
     183a:	82 e0       	ldi	r24, 0x02	; 2
-    183c:	67 e0       	ldi	r22, 0x07	; 7
+    183c:	66 e0       	ldi	r22, 0x06	; 6
     183e:	41 e0       	ldi	r20, 0x01	; 1
     1840:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
+			PIN_OUTPUT); /*declaring the first control pin as output pin*/
+	GPIO_setupPinDirection(SEVEN_SEG_CONTROL_PORT,
+    1844:	82 e0       	ldi	r24, 0x02	; 2
+    1846:	67 e0       	ldi	r22, 0x07	; 7
+    1848:	41 e0       	ldi	r20, 0x01	; 1
+    184a:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 			SEVEN_SEG_CONTROL_START_PIN + 1, PIN_OUTPUT); /*declaring the second control pin as output pin*/
 	GPIO_writePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN,
-    1844:	82 e0       	ldi	r24, 0x02	; 2
-    1846:	66 e0       	ldi	r22, 0x06	; 6
-    1848:	41 e0       	ldi	r20, 0x01	; 1
-    184a:	0e 94 0b 07 	call	0xe16	; 0xe16 <GPIO_writePin>
+    184e:	82 e0       	ldi	r24, 0x02	; 2
+    1850:	66 e0       	ldi	r22, 0x06	; 6
+    1852:	41 e0       	ldi	r20, 0x01	; 1
+    1854:	0e 94 0b 07 	call	0xe16	; 0xe16 <GPIO_writePin>
 			LOGIC_HIGH); /*initializing the first controll pin to be LOGIC_HIGH*/
 	GPIO_writePin(SEVEN_SEG_CONTROL_PORT, SEVEN_SEG_CONTROL_START_PIN + 1,
-    184e:	82 e0       	ldi	r24, 0x02	; 2
-    1850:	67 e0       	ldi	r22, 0x07	; 7
-    1852:	40 e0       	ldi	r20, 0x00	; 0
-    1854:	0e 94 0b 07 	call	0xe16	; 0xe16 <GPIO_writePin>
+    1858:	82 e0       	ldi	r24, 0x02	; 2
+    185a:	67 e0       	ldi	r22, 0x07	; 7
+    185c:	40 e0       	ldi	r20, 0x00	; 0
+    185e:	0e 94 0b 07 	call	0xe16	; 0xe16 <GPIO_writePin>
 			LOGIC_LOW); /*initializing the second controll pin to be LOGIC_LOW*/
 	/*Timer2 Setup*/
 	TIMER2_startTimer2(1,displayNumber);
-    1858:	2f ec       	ldi	r18, 0xCF	; 207
-    185a:	3b e0       	ldi	r19, 0x0B	; 11
-    185c:	81 e0       	ldi	r24, 0x01	; 1
-    185e:	b9 01       	movw	r22, r18
-    1860:	0e 94 c6 05 	call	0xb8c	; 0xb8c <TIMER2_startTimer2>
+    1862:	2f ec       	ldi	r18, 0xCF	; 207
+    1864:	3b e0       	ldi	r19, 0x0B	; 11
+    1866:	81 e0       	ldi	r24, 0x01	; 1
+    1868:	b9 01       	movw	r22, r18
+    186a:	0e 94 c6 05 	call	0xb8c	; 0xb8c <TIMER2_startTimer2>
 }
-    1864:	cf 91       	pop	r28
-    1866:	df 91       	pop	r29
-    1868:	08 95       	ret
+    186e:	cf 91       	pop	r28
+    1870:	df 91       	pop	r29
+    1872:	08 95       	ret
 
-0000186a <KEYPAD_init>:
+00001874 <KEYPAD_init>:
 
 /*
  * Description :
  * Initializing the Keypad
  */
 void KEYPAD_init() {
-    186a:	df 93       	push	r29
-    186c:	cf 93       	push	r28
-    186e:	cd b7       	in	r28, 0x3d	; 61
-    1870:	de b7       	in	r29, 0x3e	; 62
+    1874:	df 93       	push	r29
+    1876:	cf 93       	push	r28
+    1878:	cd b7       	in	r28, 0x3d	; 61
+    187a:	de b7       	in	r29, 0x3e	; 62
 	GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID,
-    1872:	81 e0       	ldi	r24, 0x01	; 1
-    1874:	64 e0       	ldi	r22, 0x04	; 4
-    1876:	40 e0       	ldi	r20, 0x00	; 0
-    1878:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
-			PIN_INPUT);
-	GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID + 1,
     187c:	81 e0       	ldi	r24, 0x01	; 1
-    187e:	65 e0       	ldi	r22, 0x05	; 5
+    187e:	64 e0       	ldi	r22, 0x04	; 4
     1880:	40 e0       	ldi	r20, 0x00	; 0
     1882:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 			PIN_INPUT);
-	GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID + 2,
+	GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID + 1,
     1886:	81 e0       	ldi	r24, 0x01	; 1
-    1888:	66 e0       	ldi	r22, 0x06	; 6
+    1888:	65 e0       	ldi	r22, 0x05	; 5
     188a:	40 e0       	ldi	r20, 0x00	; 0
     188c:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 			PIN_INPUT);
-	GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID + 3,
+	GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID + 2,
     1890:	81 e0       	ldi	r24, 0x01	; 1
-    1892:	67 e0       	ldi	r22, 0x07	; 7
+    1892:	66 e0       	ldi	r22, 0x06	; 6
     1894:	40 e0       	ldi	r20, 0x00	; 0
     1896:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 			PIN_INPUT);
-
-	GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID,
-    189a:	83 e0       	ldi	r24, 0x03	; 3
-    189c:	62 e0       	ldi	r22, 0x02	; 2
+	GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID + 3,
+    189a:	81 e0       	ldi	r24, 0x01	; 1
+    189c:	67 e0       	ldi	r22, 0x07	; 7
     189e:	40 e0       	ldi	r20, 0x00	; 0
     18a0:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 			PIN_INPUT);
-	GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID + 1,
+
+	GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID,
     18a4:	83 e0       	ldi	r24, 0x03	; 3
-    18a6:	63 e0       	ldi	r22, 0x03	; 3
+    18a6:	62 e0       	ldi	r22, 0x02	; 2
     18a8:	40 e0       	ldi	r20, 0x00	; 0
     18aa:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 			PIN_INPUT);
-	GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID + 2,
+	GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID + 1,
     18ae:	83 e0       	ldi	r24, 0x03	; 3
-    18b0:	64 e0       	ldi	r22, 0x04	; 4
+    18b0:	63 e0       	ldi	r22, 0x03	; 3
     18b2:	40 e0       	ldi	r20, 0x00	; 0
     18b4:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 			PIN_INPUT);
-#if(KEYPAD_NUM_COLS == 4)
-	GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID + 3,
+	GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID + 2,
     18b8:	83 e0       	ldi	r24, 0x03	; 3
-    18ba:	65 e0       	ldi	r22, 0x05	; 5
+    18ba:	64 e0       	ldi	r22, 0x04	; 4
     18bc:	40 e0       	ldi	r20, 0x00	; 0
     18be:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
+			PIN_INPUT);
+#if(KEYPAD_NUM_COLS == 4)
+	GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID + 3,
+    18c2:	83 e0       	ldi	r24, 0x03	; 3
+    18c4:	65 e0       	ldi	r22, 0x05	; 5
+    18c6:	40 e0       	ldi	r20, 0x00	; 0
+    18c8:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 			PIN_INPUT);
 #endif
 
 }
-    18c2:	cf 91       	pop	r28
-    18c4:	df 91       	pop	r29
-    18c6:	08 95       	ret
+    18cc:	cf 91       	pop	r28
+    18ce:	df 91       	pop	r29
+    18d0:	08 95       	ret
 
-000018c8 <KEYPAD_getPressedKey>:
+000018d2 <KEYPAD_getPressedKey>:
 uint8 KEYPAD_getPressedKey(void){
-    18c8:	df 93       	push	r29
-    18ca:	cf 93       	push	r28
-    18cc:	cd b7       	in	r28, 0x3d	; 61
-    18ce:	de b7       	in	r29, 0x3e	; 62
-    18d0:	61 97       	sbiw	r28, 0x11	; 17
-    18d2:	0f b6       	in	r0, 0x3f	; 63
-    18d4:	f8 94       	cli
-    18d6:	de bf       	out	0x3e, r29	; 62
-    18d8:	0f be       	out	0x3f, r0	; 63
-    18da:	cd bf       	out	0x3d, r28	; 61
+    18d2:	df 93       	push	r29
+    18d4:	cf 93       	push	r28
+    18d6:	cd b7       	in	r28, 0x3d	; 61
+    18d8:	de b7       	in	r29, 0x3e	; 62
+    18da:	61 97       	sbiw	r28, 0x11	; 17
+    18dc:	0f b6       	in	r0, 0x3f	; 63
+    18de:	f8 94       	cli
+    18e0:	de bf       	out	0x3e, r29	; 62
+    18e2:	0f be       	out	0x3f, r0	; 63
+    18e4:	cd bf       	out	0x3d, r28	; 61
 	uint8 row,col;
 	for(row=0 ; row<KEYPAD_NUM_ROWS ; row++) /* loop for rows */
-    18dc:	18 8a       	std	Y+16, r1	; 0x10
-    18de:	ae c0       	rjmp	.+348    	; 0x1a3c <KEYPAD_getPressedKey+0x174>
+    18e6:	18 8a       	std	Y+16, r1	; 0x10
+    18e8:	ad c0       	rjmp	.+346    	; 0x1a44 <KEYPAD_getPressedKey+0x172>
 			{
 				/*
 				 * Each time setup the direction for all keypad port as input pins,
 				 * except this row will be output pin
 				 */
 				GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID,KEYPAD_FIRST_ROW_PIN_ID+row,PIN_OUTPUT);
-    18e0:	88 89       	ldd	r24, Y+16	; 0x10
-    18e2:	98 2f       	mov	r25, r24
-    18e4:	9c 5f       	subi	r25, 0xFC	; 252
-    18e6:	81 e0       	ldi	r24, 0x01	; 1
-    18e8:	69 2f       	mov	r22, r25
-    18ea:	41 e0       	ldi	r20, 0x01	; 1
-    18ec:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
+    18ea:	88 89       	ldd	r24, Y+16	; 0x10
+    18ec:	98 2f       	mov	r25, r24
+    18ee:	9c 5f       	subi	r25, 0xFC	; 252
+    18f0:	81 e0       	ldi	r24, 0x01	; 1
+    18f2:	69 2f       	mov	r22, r25
+    18f4:	41 e0       	ldi	r20, 0x01	; 1
+    18f6:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
 
 				/* Set/Clear the row output pin */
 				GPIO_writePin(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID+row, KEYPAD_BUTTON_PRESSED);
-    18f0:	88 89       	ldd	r24, Y+16	; 0x10
-    18f2:	98 2f       	mov	r25, r24
-    18f4:	9c 5f       	subi	r25, 0xFC	; 252
-    18f6:	81 e0       	ldi	r24, 0x01	; 1
-    18f8:	69 2f       	mov	r22, r25
-    18fa:	40 e0       	ldi	r20, 0x00	; 0
-    18fc:	0e 94 0b 07 	call	0xe16	; 0xe16 <GPIO_writePin>
+    18fa:	88 89       	ldd	r24, Y+16	; 0x10
+    18fc:	98 2f       	mov	r25, r24
+    18fe:	9c 5f       	subi	r25, 0xFC	; 252
+    1900:	81 e0       	ldi	r24, 0x01	; 1
+    1902:	69 2f       	mov	r22, r25
+    1904:	40 e0       	ldi	r20, 0x00	; 0
+    1906:	0e 94 0b 07 	call	0xe16	; 0xe16 <GPIO_writePin>
 
 				for(col=0 ; col<KEYPAD_NUM_COLS ; col++) /* loop for columns */
-    1900:	1f 86       	std	Y+15, r1	; 0x0f
-    1902:	1c c0       	rjmp	.+56     	; 0x193c <KEYPAD_getPressedKey+0x74>
+    190a:	1f 86       	std	Y+15, r1	; 0x0f
+    190c:	1b c0       	rjmp	.+54     	; 0x1944 <KEYPAD_getPressedKey+0x72>
 				{
 					/* Check if the switch is pressed in this column */
 					if(GPIO_readPin(KEYPAD_COL_PORT_ID,KEYPAD_FIRST_COL_PIN_ID+col) == KEYPAD_BUTTON_PRESSED)
-    1904:	8f 85       	ldd	r24, Y+15	; 0x0f
-    1906:	98 2f       	mov	r25, r24
-    1908:	9e 5f       	subi	r25, 0xFE	; 254
-    190a:	83 e0       	ldi	r24, 0x03	; 3
-    190c:	69 2f       	mov	r22, r25
-    190e:	0e 94 f6 07 	call	0xfec	; 0xfec <GPIO_readPin>
-    1912:	88 23       	and	r24, r24
-    1914:	81 f4       	brne	.+32     	; 0x1936 <KEYPAD_getPressedKey+0x6e>
+    190e:	8f 85       	ldd	r24, Y+15	; 0x0f
+    1910:	98 2f       	mov	r25, r24
+    1912:	9e 5f       	subi	r25, 0xFE	; 254
+    1914:	83 e0       	ldi	r24, 0x03	; 3
+    1916:	69 2f       	mov	r22, r25
+    1918:	0e 94 f6 07 	call	0xfec	; 0xfec <GPIO_readPin>
+    191c:	88 23       	and	r24, r24
+    191e:	79 f4       	brne	.+30     	; 0x193e <KEYPAD_getPressedKey+0x6c>
 							#endif
 						#elif (KEYPAD_NUM_COLS == 4)
 							#ifdef STANDARD_KEYPAD
 								return ((row*KEYPAD_NUM_COLS)+col+1);
 							#else
 								return KEYPAD_4x4_adjustKeyNumber((row*KEYPAD_NUM_COLS)+col+1);
-    1916:	88 89       	ldd	r24, Y+16	; 0x10
-    1918:	88 2f       	mov	r24, r24
-    191a:	90 e0       	ldi	r25, 0x00	; 0
-    191c:	88 0f       	add	r24, r24
-    191e:	99 1f       	adc	r25, r25
-    1920:	88 0f       	add	r24, r24
-    1922:	99 1f       	adc	r25, r25
-    1924:	98 2f       	mov	r25, r24
-    1926:	8f 85       	ldd	r24, Y+15	; 0x0f
-    1928:	89 0f       	add	r24, r25
-    192a:	8f 5f       	subi	r24, 0xFF	; 255
-    192c:	0e 94 2b 0d 	call	0x1a56	; 0x1a56 <KEYPAD_4x4_adjustKeyNumber>
-    1930:	89 8b       	std	Y+17, r24	; 0x11
-					}
-				}
-				GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID,KEYPAD_FIRST_ROW_PIN_ID+row,PIN_INPUT);
-				_delay_ms(5); /* Add small delay to fix CPU load issue in proteus */
-			}
-}
-    1932:	89 89       	ldd	r24, Y+17	; 0x11
-    1934:	87 c0       	rjmp	.+270    	; 0x1a44 <KEYPAD_getPressedKey+0x17c>
+    1920:	88 89       	ldd	r24, Y+16	; 0x10
+    1922:	88 2f       	mov	r24, r24
+    1924:	90 e0       	ldi	r25, 0x00	; 0
+    1926:	88 0f       	add	r24, r24
+    1928:	99 1f       	adc	r25, r25
+    192a:	88 0f       	add	r24, r24
+    192c:	99 1f       	adc	r25, r25
+    192e:	98 2f       	mov	r25, r24
+    1930:	8f 85       	ldd	r24, Y+15	; 0x0f
+    1932:	89 0f       	add	r24, r25
+    1934:	8f 5f       	subi	r24, 0xFF	; 255
+    1936:	0e 94 32 0d 	call	0x1a64	; 0x1a64 <KEYPAD_4x4_adjustKeyNumber>
+    193a:	89 8b       	std	Y+17, r24	; 0x11
+    193c:	89 c0       	rjmp	.+274    	; 0x1a50 <KEYPAD_getPressedKey+0x17e>
 				GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID,KEYPAD_FIRST_ROW_PIN_ID+row,PIN_OUTPUT);
 
 				/* Set/Clear the row output pin */
 				GPIO_writePin(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID+row, KEYPAD_BUTTON_PRESSED);
 
 				for(col=0 ; col<KEYPAD_NUM_COLS ; col++) /* loop for columns */
-    1936:	8f 85       	ldd	r24, Y+15	; 0x0f
-    1938:	8f 5f       	subi	r24, 0xFF	; 255
-    193a:	8f 87       	std	Y+15, r24	; 0x0f
-    193c:	8f 85       	ldd	r24, Y+15	; 0x0f
-    193e:	84 30       	cpi	r24, 0x04	; 4
-    1940:	08 f3       	brcs	.-62     	; 0x1904 <KEYPAD_getPressedKey+0x3c>
+    193e:	8f 85       	ldd	r24, Y+15	; 0x0f
+    1940:	8f 5f       	subi	r24, 0xFF	; 255
+    1942:	8f 87       	std	Y+15, r24	; 0x0f
+    1944:	8f 85       	ldd	r24, Y+15	; 0x0f
+    1946:	84 30       	cpi	r24, 0x04	; 4
+    1948:	10 f3       	brcs	.-60     	; 0x190e <KEYPAD_getPressedKey+0x3c>
 								return KEYPAD_4x4_adjustKeyNumber((row*KEYPAD_NUM_COLS)+col+1);
 							#endif
 						#endif
 					}
 				}
 				GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID,KEYPAD_FIRST_ROW_PIN_ID+row,PIN_INPUT);
-    1942:	88 89       	ldd	r24, Y+16	; 0x10
-    1944:	98 2f       	mov	r25, r24
-    1946:	9c 5f       	subi	r25, 0xFC	; 252
-    1948:	81 e0       	ldi	r24, 0x01	; 1
-    194a:	69 2f       	mov	r22, r25
-    194c:	40 e0       	ldi	r20, 0x00	; 0
-    194e:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
-    1952:	80 e0       	ldi	r24, 0x00	; 0
-    1954:	90 e0       	ldi	r25, 0x00	; 0
-    1956:	a0 ea       	ldi	r26, 0xA0	; 160
-    1958:	b0 e4       	ldi	r27, 0x40	; 64
-    195a:	8b 87       	std	Y+11, r24	; 0x0b
-    195c:	9c 87       	std	Y+12, r25	; 0x0c
-    195e:	ad 87       	std	Y+13, r26	; 0x0d
-    1960:	be 87       	std	Y+14, r27	; 0x0e
+    194a:	88 89       	ldd	r24, Y+16	; 0x10
+    194c:	98 2f       	mov	r25, r24
+    194e:	9c 5f       	subi	r25, 0xFC	; 252
+    1950:	81 e0       	ldi	r24, 0x01	; 1
+    1952:	69 2f       	mov	r22, r25
+    1954:	40 e0       	ldi	r20, 0x00	; 0
+    1956:	0e 94 20 06 	call	0xc40	; 0xc40 <GPIO_setupPinDirection>
+    195a:	80 e0       	ldi	r24, 0x00	; 0
+    195c:	90 e0       	ldi	r25, 0x00	; 0
+    195e:	a0 ea       	ldi	r26, 0xA0	; 160
+    1960:	b0 e4       	ldi	r27, 0x40	; 64
+    1962:	8b 87       	std	Y+11, r24	; 0x0b
+    1964:	9c 87       	std	Y+12, r25	; 0x0c
+    1966:	ad 87       	std	Y+13, r26	; 0x0d
+    1968:	be 87       	std	Y+14, r27	; 0x0e
  */
 void
 _delay_ms(double __ms)
 {
 	uint16_t __ticks;
 	double __tmp = ((F_CPU) / 4e3) * __ms;
-    1962:	6b 85       	ldd	r22, Y+11	; 0x0b
-    1964:	7c 85       	ldd	r23, Y+12	; 0x0c
-    1966:	8d 85       	ldd	r24, Y+13	; 0x0d
-    1968:	9e 85       	ldd	r25, Y+14	; 0x0e
-    196a:	20 e0       	ldi	r18, 0x00	; 0
-    196c:	30 e0       	ldi	r19, 0x00	; 0
-    196e:	4a e7       	ldi	r20, 0x7A	; 122
-    1970:	53 e4       	ldi	r21, 0x43	; 67
-    1972:	0e 94 1f 02 	call	0x43e	; 0x43e <__mulsf3>
-    1976:	dc 01       	movw	r26, r24
-    1978:	cb 01       	movw	r24, r22
-    197a:	8f 83       	std	Y+7, r24	; 0x07
-    197c:	98 87       	std	Y+8, r25	; 0x08
-    197e:	a9 87       	std	Y+9, r26	; 0x09
-    1980:	ba 87       	std	Y+10, r27	; 0x0a
+    196a:	6b 85       	ldd	r22, Y+11	; 0x0b
+    196c:	7c 85       	ldd	r23, Y+12	; 0x0c
+    196e:	8d 85       	ldd	r24, Y+13	; 0x0d
+    1970:	9e 85       	ldd	r25, Y+14	; 0x0e
+    1972:	20 e0       	ldi	r18, 0x00	; 0
+    1974:	30 e0       	ldi	r19, 0x00	; 0
+    1976:	4a e7       	ldi	r20, 0x7A	; 122
+    1978:	53 e4       	ldi	r21, 0x43	; 67
+    197a:	0e 94 1f 02 	call	0x43e	; 0x43e <__mulsf3>
+    197e:	dc 01       	movw	r26, r24
+    1980:	cb 01       	movw	r24, r22
+    1982:	8f 83       	std	Y+7, r24	; 0x07
+    1984:	98 87       	std	Y+8, r25	; 0x08
+    1986:	a9 87       	std	Y+9, r26	; 0x09
+    1988:	ba 87       	std	Y+10, r27	; 0x0a
 	if (__tmp < 1.0)
-    1982:	6f 81       	ldd	r22, Y+7	; 0x07
-    1984:	78 85       	ldd	r23, Y+8	; 0x08
-    1986:	89 85       	ldd	r24, Y+9	; 0x09
-    1988:	9a 85       	ldd	r25, Y+10	; 0x0a
-    198a:	20 e0       	ldi	r18, 0x00	; 0
-    198c:	30 e0       	ldi	r19, 0x00	; 0
-    198e:	40 e8       	ldi	r20, 0x80	; 128
-    1990:	5f e3       	ldi	r21, 0x3F	; 63
-    1992:	0e 94 79 03 	call	0x6f2	; 0x6f2 <__ltsf2>
-    1996:	88 23       	and	r24, r24
-    1998:	2c f4       	brge	.+10     	; 0x19a4 <KEYPAD_getPressedKey+0xdc>
+    198a:	6f 81       	ldd	r22, Y+7	; 0x07
+    198c:	78 85       	ldd	r23, Y+8	; 0x08
+    198e:	89 85       	ldd	r24, Y+9	; 0x09
+    1990:	9a 85       	ldd	r25, Y+10	; 0x0a
+    1992:	20 e0       	ldi	r18, 0x00	; 0
+    1994:	30 e0       	ldi	r19, 0x00	; 0
+    1996:	40 e8       	ldi	r20, 0x80	; 128
+    1998:	5f e3       	ldi	r21, 0x3F	; 63
+    199a:	0e 94 79 03 	call	0x6f2	; 0x6f2 <__ltsf2>
+    199e:	88 23       	and	r24, r24
+    19a0:	2c f4       	brge	.+10     	; 0x19ac <KEYPAD_getPressedKey+0xda>
 		__ticks = 1;
-    199a:	81 e0       	ldi	r24, 0x01	; 1
-    199c:	90 e0       	ldi	r25, 0x00	; 0
-    199e:	9e 83       	std	Y+6, r25	; 0x06
-    19a0:	8d 83       	std	Y+5, r24	; 0x05
-    19a2:	3f c0       	rjmp	.+126    	; 0x1a22 <KEYPAD_getPressedKey+0x15a>
+    19a2:	81 e0       	ldi	r24, 0x01	; 1
+    19a4:	90 e0       	ldi	r25, 0x00	; 0
+    19a6:	9e 83       	std	Y+6, r25	; 0x06
+    19a8:	8d 83       	std	Y+5, r24	; 0x05
+    19aa:	3f c0       	rjmp	.+126    	; 0x1a2a <KEYPAD_getPressedKey+0x158>
 	else if (__tmp > 65535)
-    19a4:	6f 81       	ldd	r22, Y+7	; 0x07
-    19a6:	78 85       	ldd	r23, Y+8	; 0x08
-    19a8:	89 85       	ldd	r24, Y+9	; 0x09
-    19aa:	9a 85       	ldd	r25, Y+10	; 0x0a
-    19ac:	20 e0       	ldi	r18, 0x00	; 0
-    19ae:	3f ef       	ldi	r19, 0xFF	; 255
-    19b0:	4f e7       	ldi	r20, 0x7F	; 127
-    19b2:	57 e4       	ldi	r21, 0x47	; 71
-    19b4:	0e 94 19 03 	call	0x632	; 0x632 <__gtsf2>
-    19b8:	18 16       	cp	r1, r24
-    19ba:	4c f5       	brge	.+82     	; 0x1a0e <KEYPAD_getPressedKey+0x146>
+    19ac:	6f 81       	ldd	r22, Y+7	; 0x07
+    19ae:	78 85       	ldd	r23, Y+8	; 0x08
+    19b0:	89 85       	ldd	r24, Y+9	; 0x09
+    19b2:	9a 85       	ldd	r25, Y+10	; 0x0a
+    19b4:	20 e0       	ldi	r18, 0x00	; 0
+    19b6:	3f ef       	ldi	r19, 0xFF	; 255
+    19b8:	4f e7       	ldi	r20, 0x7F	; 127
+    19ba:	57 e4       	ldi	r21, 0x47	; 71
+    19bc:	0e 94 19 03 	call	0x632	; 0x632 <__gtsf2>
+    19c0:	18 16       	cp	r1, r24
+    19c2:	4c f5       	brge	.+82     	; 0x1a16 <KEYPAD_getPressedKey+0x144>
 	{
 		//	__ticks = requested delay in 1/10 ms
 		__ticks = (uint16_t) (__ms * 10.0);
-    19bc:	6b 85       	ldd	r22, Y+11	; 0x0b
-    19be:	7c 85       	ldd	r23, Y+12	; 0x0c
-    19c0:	8d 85       	ldd	r24, Y+13	; 0x0d
-    19c2:	9e 85       	ldd	r25, Y+14	; 0x0e
-    19c4:	20 e0       	ldi	r18, 0x00	; 0
-    19c6:	30 e0       	ldi	r19, 0x00	; 0
-    19c8:	40 e2       	ldi	r20, 0x20	; 32
-    19ca:	51 e4       	ldi	r21, 0x41	; 65
-    19cc:	0e 94 1f 02 	call	0x43e	; 0x43e <__mulsf3>
-    19d0:	dc 01       	movw	r26, r24
-    19d2:	cb 01       	movw	r24, r22
-    19d4:	bc 01       	movw	r22, r24
-    19d6:	cd 01       	movw	r24, r26
-    19d8:	0e 94 49 00 	call	0x92	; 0x92 <__fixunssfsi>
-    19dc:	dc 01       	movw	r26, r24
-    19de:	cb 01       	movw	r24, r22
-    19e0:	9e 83       	std	Y+6, r25	; 0x06
-    19e2:	8d 83       	std	Y+5, r24	; 0x05
-    19e4:	0f c0       	rjmp	.+30     	; 0x1a04 <KEYPAD_getPressedKey+0x13c>
-    19e6:	89 e1       	ldi	r24, 0x19	; 25
-    19e8:	90 e0       	ldi	r25, 0x00	; 0
-    19ea:	9c 83       	std	Y+4, r25	; 0x04
-    19ec:	8b 83       	std	Y+3, r24	; 0x03
+    19c4:	6b 85       	ldd	r22, Y+11	; 0x0b
+    19c6:	7c 85       	ldd	r23, Y+12	; 0x0c
+    19c8:	8d 85       	ldd	r24, Y+13	; 0x0d
+    19ca:	9e 85       	ldd	r25, Y+14	; 0x0e
+    19cc:	20 e0       	ldi	r18, 0x00	; 0
+    19ce:	30 e0       	ldi	r19, 0x00	; 0
+    19d0:	40 e2       	ldi	r20, 0x20	; 32
+    19d2:	51 e4       	ldi	r21, 0x41	; 65
+    19d4:	0e 94 1f 02 	call	0x43e	; 0x43e <__mulsf3>
+    19d8:	dc 01       	movw	r26, r24
+    19da:	cb 01       	movw	r24, r22
+    19dc:	bc 01       	movw	r22, r24
+    19de:	cd 01       	movw	r24, r26
+    19e0:	0e 94 49 00 	call	0x92	; 0x92 <__fixunssfsi>
+    19e4:	dc 01       	movw	r26, r24
+    19e6:	cb 01       	movw	r24, r22
+    19e8:	9e 83       	std	Y+6, r25	; 0x06
+    19ea:	8d 83       	std	Y+5, r24	; 0x05
+    19ec:	0f c0       	rjmp	.+30     	; 0x1a0c <KEYPAD_getPressedKey+0x13a>
+    19ee:	89 e1       	ldi	r24, 0x19	; 25
+    19f0:	90 e0       	ldi	r25, 0x00	; 0
+    19f2:	9c 83       	std	Y+4, r25	; 0x04
+    19f4:	8b 83       	std	Y+3, r24	; 0x03
     milliseconds can be achieved.
  */
 void
 _delay_loop_2(uint16_t __count)
 {
 	__asm__ volatile (
-    19ee:	8b 81       	ldd	r24, Y+3	; 0x03
-    19f0:	9c 81       	ldd	r25, Y+4	; 0x04
-    19f2:	01 97       	sbiw	r24, 0x01	; 1
-    19f4:	f1 f7       	brne	.-4      	; 0x19f2 <KEYPAD_getPressedKey+0x12a>
-    19f6:	9c 83       	std	Y+4, r25	; 0x04
-    19f8:	8b 83       	std	Y+3, r24	; 0x03
+    19f6:	8b 81       	ldd	r24, Y+3	; 0x03
+    19f8:	9c 81       	ldd	r25, Y+4	; 0x04
+    19fa:	01 97       	sbiw	r24, 0x01	; 1
+    19fc:	f1 f7       	brne	.-4      	; 0x19fa <KEYPAD_getPressedKey+0x128>
+    19fe:	9c 83       	std	Y+4, r25	; 0x04
+    1a00:	8b 83       	std	Y+3, r24	; 0x03
 		while(__ticks)
 		{
 			// wait 1/10 ms
 			_delay_loop_2(((F_CPU) / 4e3) / 10);
 			__ticks --;
-    19fa:	8d 81       	ldd	r24, Y+5	; 0x05
-    19fc:	9e 81       	ldd	r25, Y+6	; 0x06
-    19fe:	01 97       	sbiw	r24, 0x01	; 1
-    1a00:	9e 83       	std	Y+6, r25	; 0x06
-    1a02:	8d 83       	std	Y+5, r24	; 0x05
+    1a02:	8d 81       	ldd	r24, Y+5	; 0x05
+    1a04:	9e 81       	ldd	r25, Y+6	; 0x06
+    1a06:	01 97       	sbiw	r24, 0x01	; 1
+    1a08:	9e 83       	std	Y+6, r25	; 0x06
+    1a0a:	8d 83       	std	Y+5, r24	; 0x05
 		__ticks = 1;
 	else if (__tmp > 65535)
 	{
 		//	__ticks = requested delay in 1/10 ms
 		__ticks = (uint16_t) (__ms * 10.0);
 		while(__ticks)
-    1a04:	8d 81       	ldd	r24, Y+5	; 0x05
-    1a06:	9e 81       	ldd	r25, Y+6	; 0x06
-    1a08:	00 97       	sbiw	r24, 0x00	; 0
-    1a0a:	69 f7       	brne	.-38     	; 0x19e6 <KEYPAD_getPressedKey+0x11e>
-    1a0c:	14 c0       	rjmp	.+40     	; 0x1a36 <KEYPAD_getPressedKey+0x16e>
+    1a0c:	8d 81       	ldd	r24, Y+5	; 0x05
+    1a0e:	9e 81       	ldd	r25, Y+6	; 0x06
+    1a10:	00 97       	sbiw	r24, 0x00	; 0
+    1a12:	69 f7       	brne	.-38     	; 0x19ee <KEYPAD_getPressedKey+0x11c>
+    1a14:	14 c0       	rjmp	.+40     	; 0x1a3e <KEYPAD_getPressedKey+0x16c>
 			__ticks --;
 		}
 		return;
 	}
 	else
 		__ticks = (uint16_t)__tmp;
-    1a0e:	6f 81       	ldd	r22, Y+7	; 0x07
-    1a10:	78 85       	ldd	r23, Y+8	; 0x08
-    1a12:	89 85       	ldd	r24, Y+9	; 0x09
-    1a14:	9a 85       	ldd	r25, Y+10	; 0x0a
-    1a16:	0e 94 49 00 	call	0x92	; 0x92 <__fixunssfsi>
-    1a1a:	dc 01       	movw	r26, r24
-    1a1c:	cb 01       	movw	r24, r22
-    1a1e:	9e 83       	std	Y+6, r25	; 0x06
-    1a20:	8d 83       	std	Y+5, r24	; 0x05
-    1a22:	8d 81       	ldd	r24, Y+5	; 0x05
-    1a24:	9e 81       	ldd	r25, Y+6	; 0x06
-    1a26:	9a 83       	std	Y+2, r25	; 0x02
-    1a28:	89 83       	std	Y+1, r24	; 0x01
-    1a2a:	89 81       	ldd	r24, Y+1	; 0x01
-    1a2c:	9a 81       	ldd	r25, Y+2	; 0x02
-    1a2e:	01 97       	sbiw	r24, 0x01	; 1
-    1a30:	f1 f7       	brne	.-4      	; 0x1a2e <KEYPAD_getPressedKey+0x166>
-    1a32:	9a 83       	std	Y+2, r25	; 0x02
-    1a34:	89 83       	std	Y+1, r24	; 0x01
+    1a16:	6f 81       	ldd	r22, Y+7	; 0x07
+    1a18:	78 85       	ldd	r23, Y+8	; 0x08
+    1a1a:	89 85       	ldd	r24, Y+9	; 0x09
+    1a1c:	9a 85       	ldd	r25, Y+10	; 0x0a
+    1a1e:	0e 94 49 00 	call	0x92	; 0x92 <__fixunssfsi>
+    1a22:	dc 01       	movw	r26, r24
+    1a24:	cb 01       	movw	r24, r22
+    1a26:	9e 83       	std	Y+6, r25	; 0x06
+    1a28:	8d 83       	std	Y+5, r24	; 0x05
+    1a2a:	8d 81       	ldd	r24, Y+5	; 0x05
+    1a2c:	9e 81       	ldd	r25, Y+6	; 0x06
+    1a2e:	9a 83       	std	Y+2, r25	; 0x02
+    1a30:	89 83       	std	Y+1, r24	; 0x01
+    1a32:	89 81       	ldd	r24, Y+1	; 0x01
+    1a34:	9a 81       	ldd	r25, Y+2	; 0x02
+    1a36:	01 97       	sbiw	r24, 0x01	; 1
+    1a38:	f1 f7       	brne	.-4      	; 0x1a36 <KEYPAD_getPressedKey+0x164>
+    1a3a:	9a 83       	std	Y+2, r25	; 0x02
+    1a3c:	89 83       	std	Y+1, r24	; 0x01
 #endif
 
 }
 uint8 KEYPAD_getPressedKey(void){
 	uint8 row,col;
 	for(row=0 ; row<KEYPAD_NUM_ROWS ; row++) /* loop for rows */
-    1a36:	88 89       	ldd	r24, Y+16	; 0x10
-    1a38:	8f 5f       	subi	r24, 0xFF	; 255
-    1a3a:	88 8b       	std	Y+16, r24	; 0x10
-    1a3c:	88 89       	ldd	r24, Y+16	; 0x10
-    1a3e:	84 30       	cpi	r24, 0x04	; 4
-    1a40:	08 f4       	brcc	.+2      	; 0x1a44 <KEYPAD_getPressedKey+0x17c>
-    1a42:	4e cf       	rjmp	.-356    	; 0x18e0 <KEYPAD_getPressedKey+0x18>
+    1a3e:	88 89       	ldd	r24, Y+16	; 0x10
+    1a40:	8f 5f       	subi	r24, 0xFF	; 255
+    1a42:	88 8b       	std	Y+16, r24	; 0x10
+    1a44:	88 89       	ldd	r24, Y+16	; 0x10
+    1a46:	84 30       	cpi	r24, 0x04	; 4
+    1a48:	08 f4       	brcc	.+2      	; 0x1a4c <KEYPAD_getPressedKey+0x17a>
+    1a4a:	4f cf       	rjmp	.-354    	; 0x18ea <KEYPAD_getPressedKey+0x18>
 					}
 				}
 				GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID,KEYPAD_FIRST_ROW_PIN_ID+row,PIN_INPUT);
 				_delay_ms(5); /* Add small delay to fix CPU load issue in proteus */
 			}
+	return 255;
+    1a4c:	8f ef       	ldi	r24, 0xFF	; 255
+    1a4e:	89 8b       	std	Y+17, r24	; 0x11
+    1a50:	89 89       	ldd	r24, Y+17	; 0x11
 }
-    1a44:	61 96       	adiw	r28, 0x11	; 17
-    1a46:	0f b6       	in	r0, 0x3f	; 63
-    1a48:	f8 94       	cli
-    1a4a:	de bf       	out	0x3e, r29	; 62
-    1a4c:	0f be       	out	0x3f, r0	; 63
-    1a4e:	cd bf       	out	0x3d, r28	; 61
-    1a50:	cf 91       	pop	r28
-    1a52:	df 91       	pop	r29
-    1a54:	08 95       	ret
+    1a52:	61 96       	adiw	r28, 0x11	; 17
+    1a54:	0f b6       	in	r0, 0x3f	; 63
+    1a56:	f8 94       	cli
+    1a58:	de bf       	out	0x3e, r29	; 62
+    1a5a:	0f be       	out	0x3f, r0	; 63
+    1a5c:	cd bf       	out	0x3d, r28	; 61
+    1a5e:	cf 91       	pop	r28
+    1a60:	df 91       	pop	r29
+    1a62:	08 95       	ret
 
-00001a56 <KEYPAD_4x4_adjustKeyNumber>:
+00001a64 <KEYPAD_4x4_adjustKeyNumber>:
 /*
  * Description :
  * Update the keypad pressed button value with the correct one in keypad 4x4 shape
  */
 static uint8 KEYPAD_4x4_adjustKeyNumber(uint8 button_number)
 {
-    1a56:	df 93       	push	r29
-    1a58:	cf 93       	push	r28
-    1a5a:	00 d0       	rcall	.+0      	; 0x1a5c <KEYPAD_4x4_adjustKeyNumber+0x6>
-    1a5c:	00 d0       	rcall	.+0      	; 0x1a5e <KEYPAD_4x4_adjustKeyNumber+0x8>
-    1a5e:	cd b7       	in	r28, 0x3d	; 61
-    1a60:	de b7       	in	r29, 0x3e	; 62
-    1a62:	8a 83       	std	Y+2, r24	; 0x02
+    1a64:	df 93       	push	r29
+    1a66:	cf 93       	push	r28
+    1a68:	00 d0       	rcall	.+0      	; 0x1a6a <KEYPAD_4x4_adjustKeyNumber+0x6>
+    1a6a:	00 d0       	rcall	.+0      	; 0x1a6c <KEYPAD_4x4_adjustKeyNumber+0x8>
+    1a6c:	cd b7       	in	r28, 0x3d	; 61
+    1a6e:	de b7       	in	r29, 0x3e	; 62
+    1a70:	8a 83       	std	Y+2, r24	; 0x02
 	uint8 keypad_button = 0;
-    1a64:	19 82       	std	Y+1, r1	; 0x01
+    1a72:	19 82       	std	Y+1, r1	; 0x01
 	switch(button_number)
-    1a66:	8a 81       	ldd	r24, Y+2	; 0x02
-    1a68:	28 2f       	mov	r18, r24
-    1a6a:	30 e0       	ldi	r19, 0x00	; 0
-    1a6c:	3c 83       	std	Y+4, r19	; 0x04
-    1a6e:	2b 83       	std	Y+3, r18	; 0x03
-    1a70:	8b 81       	ldd	r24, Y+3	; 0x03
-    1a72:	9c 81       	ldd	r25, Y+4	; 0x04
-    1a74:	88 30       	cpi	r24, 0x08	; 8
-    1a76:	91 05       	cpc	r25, r1
-    1a78:	09 f4       	brne	.+2      	; 0x1a7c <KEYPAD_4x4_adjustKeyNumber+0x26>
-    1a7a:	70 c0       	rjmp	.+224    	; 0x1b5c <KEYPAD_4x4_adjustKeyNumber+0x106>
-    1a7c:	2b 81       	ldd	r18, Y+3	; 0x03
-    1a7e:	3c 81       	ldd	r19, Y+4	; 0x04
-    1a80:	29 30       	cpi	r18, 0x09	; 9
-    1a82:	31 05       	cpc	r19, r1
-    1a84:	5c f5       	brge	.+86     	; 0x1adc <KEYPAD_4x4_adjustKeyNumber+0x86>
-    1a86:	8b 81       	ldd	r24, Y+3	; 0x03
-    1a88:	9c 81       	ldd	r25, Y+4	; 0x04
-    1a8a:	84 30       	cpi	r24, 0x04	; 4
-    1a8c:	91 05       	cpc	r25, r1
-    1a8e:	09 f4       	brne	.+2      	; 0x1a92 <KEYPAD_4x4_adjustKeyNumber+0x3c>
-    1a90:	59 c0       	rjmp	.+178    	; 0x1b44 <KEYPAD_4x4_adjustKeyNumber+0xee>
-    1a92:	2b 81       	ldd	r18, Y+3	; 0x03
-    1a94:	3c 81       	ldd	r19, Y+4	; 0x04
-    1a96:	25 30       	cpi	r18, 0x05	; 5
-    1a98:	31 05       	cpc	r19, r1
-    1a9a:	9c f4       	brge	.+38     	; 0x1ac2 <KEYPAD_4x4_adjustKeyNumber+0x6c>
-    1a9c:	8b 81       	ldd	r24, Y+3	; 0x03
-    1a9e:	9c 81       	ldd	r25, Y+4	; 0x04
-    1aa0:	82 30       	cpi	r24, 0x02	; 2
-    1aa2:	91 05       	cpc	r25, r1
-    1aa4:	09 f4       	brne	.+2      	; 0x1aa8 <KEYPAD_4x4_adjustKeyNumber+0x52>
-    1aa6:	48 c0       	rjmp	.+144    	; 0x1b38 <KEYPAD_4x4_adjustKeyNumber+0xe2>
-    1aa8:	2b 81       	ldd	r18, Y+3	; 0x03
-    1aaa:	3c 81       	ldd	r19, Y+4	; 0x04
-    1aac:	23 30       	cpi	r18, 0x03	; 3
-    1aae:	31 05       	cpc	r19, r1
-    1ab0:	0c f0       	brlt	.+2      	; 0x1ab4 <KEYPAD_4x4_adjustKeyNumber+0x5e>
-    1ab2:	45 c0       	rjmp	.+138    	; 0x1b3e <KEYPAD_4x4_adjustKeyNumber+0xe8>
-    1ab4:	8b 81       	ldd	r24, Y+3	; 0x03
-    1ab6:	9c 81       	ldd	r25, Y+4	; 0x04
-    1ab8:	81 30       	cpi	r24, 0x01	; 1
-    1aba:	91 05       	cpc	r25, r1
-    1abc:	09 f4       	brne	.+2      	; 0x1ac0 <KEYPAD_4x4_adjustKeyNumber+0x6a>
-    1abe:	39 c0       	rjmp	.+114    	; 0x1b32 <KEYPAD_4x4_adjustKeyNumber+0xdc>
-    1ac0:	67 c0       	rjmp	.+206    	; 0x1b90 <KEYPAD_4x4_adjustKeyNumber+0x13a>
-    1ac2:	2b 81       	ldd	r18, Y+3	; 0x03
-    1ac4:	3c 81       	ldd	r19, Y+4	; 0x04
-    1ac6:	26 30       	cpi	r18, 0x06	; 6
-    1ac8:	31 05       	cpc	r19, r1
-    1aca:	09 f4       	brne	.+2      	; 0x1ace <KEYPAD_4x4_adjustKeyNumber+0x78>
-    1acc:	41 c0       	rjmp	.+130    	; 0x1b50 <KEYPAD_4x4_adjustKeyNumber+0xfa>
-    1ace:	8b 81       	ldd	r24, Y+3	; 0x03
-    1ad0:	9c 81       	ldd	r25, Y+4	; 0x04
-    1ad2:	87 30       	cpi	r24, 0x07	; 7
-    1ad4:	91 05       	cpc	r25, r1
-    1ad6:	0c f0       	brlt	.+2      	; 0x1ada <KEYPAD_4x4_adjustKeyNumber+0x84>
-    1ad8:	3e c0       	rjmp	.+124    	; 0x1b56 <KEYPAD_4x4_adjustKeyNumber+0x100>
-    1ada:	37 c0       	rjmp	.+110    	; 0x1b4a <KEYPAD_4x4_adjustKeyNumber+0xf4>
-    1adc:	2b 81       	ldd	r18, Y+3	; 0x03
-    1ade:	3c 81       	ldd	r19, Y+4	; 0x04
-    1ae0:	2c 30       	cpi	r18, 0x0C	; 12
-    1ae2:	31 05       	cpc	r19, r1
-    1ae4:	09 f4       	brne	.+2      	; 0x1ae8 <KEYPAD_4x4_adjustKeyNumber+0x92>
-    1ae6:	46 c0       	rjmp	.+140    	; 0x1b74 <KEYPAD_4x4_adjustKeyNumber+0x11e>
-    1ae8:	8b 81       	ldd	r24, Y+3	; 0x03
-    1aea:	9c 81       	ldd	r25, Y+4	; 0x04
-    1aec:	8d 30       	cpi	r24, 0x0D	; 13
-    1aee:	91 05       	cpc	r25, r1
-    1af0:	5c f4       	brge	.+22     	; 0x1b08 <KEYPAD_4x4_adjustKeyNumber+0xb2>
-    1af2:	2b 81       	ldd	r18, Y+3	; 0x03
-    1af4:	3c 81       	ldd	r19, Y+4	; 0x04
-    1af6:	2a 30       	cpi	r18, 0x0A	; 10
-    1af8:	31 05       	cpc	r19, r1
-    1afa:	b1 f1       	breq	.+108    	; 0x1b68 <KEYPAD_4x4_adjustKeyNumber+0x112>
-    1afc:	8b 81       	ldd	r24, Y+3	; 0x03
-    1afe:	9c 81       	ldd	r25, Y+4	; 0x04
-    1b00:	8b 30       	cpi	r24, 0x0B	; 11
-    1b02:	91 05       	cpc	r25, r1
-    1b04:	a4 f5       	brge	.+104    	; 0x1b6e <KEYPAD_4x4_adjustKeyNumber+0x118>
-    1b06:	2d c0       	rjmp	.+90     	; 0x1b62 <KEYPAD_4x4_adjustKeyNumber+0x10c>
-    1b08:	2b 81       	ldd	r18, Y+3	; 0x03
-    1b0a:	3c 81       	ldd	r19, Y+4	; 0x04
-    1b0c:	2e 30       	cpi	r18, 0x0E	; 14
-    1b0e:	31 05       	cpc	r19, r1
-    1b10:	b9 f1       	breq	.+110    	; 0x1b80 <KEYPAD_4x4_adjustKeyNumber+0x12a>
-    1b12:	8b 81       	ldd	r24, Y+3	; 0x03
-    1b14:	9c 81       	ldd	r25, Y+4	; 0x04
-    1b16:	8e 30       	cpi	r24, 0x0E	; 14
-    1b18:	91 05       	cpc	r25, r1
-    1b1a:	7c f1       	brlt	.+94     	; 0x1b7a <KEYPAD_4x4_adjustKeyNumber+0x124>
-    1b1c:	2b 81       	ldd	r18, Y+3	; 0x03
-    1b1e:	3c 81       	ldd	r19, Y+4	; 0x04
-    1b20:	2f 30       	cpi	r18, 0x0F	; 15
-    1b22:	31 05       	cpc	r19, r1
-    1b24:	79 f1       	breq	.+94     	; 0x1b84 <KEYPAD_4x4_adjustKeyNumber+0x12e>
-    1b26:	8b 81       	ldd	r24, Y+3	; 0x03
-    1b28:	9c 81       	ldd	r25, Y+4	; 0x04
-    1b2a:	80 31       	cpi	r24, 0x10	; 16
-    1b2c:	91 05       	cpc	r25, r1
-    1b2e:	69 f1       	breq	.+90     	; 0x1b8a <KEYPAD_4x4_adjustKeyNumber+0x134>
-    1b30:	2f c0       	rjmp	.+94     	; 0x1b90 <KEYPAD_4x4_adjustKeyNumber+0x13a>
+    1a74:	8a 81       	ldd	r24, Y+2	; 0x02
+    1a76:	28 2f       	mov	r18, r24
+    1a78:	30 e0       	ldi	r19, 0x00	; 0
+    1a7a:	3c 83       	std	Y+4, r19	; 0x04
+    1a7c:	2b 83       	std	Y+3, r18	; 0x03
+    1a7e:	8b 81       	ldd	r24, Y+3	; 0x03
+    1a80:	9c 81       	ldd	r25, Y+4	; 0x04
+    1a82:	88 30       	cpi	r24, 0x08	; 8
+    1a84:	91 05       	cpc	r25, r1
+    1a86:	09 f4       	brne	.+2      	; 0x1a8a <KEYPAD_4x4_adjustKeyNumber+0x26>
+    1a88:	70 c0       	rjmp	.+224    	; 0x1b6a <KEYPAD_4x4_adjustKeyNumber+0x106>
+    1a8a:	2b 81       	ldd	r18, Y+3	; 0x03
+    1a8c:	3c 81       	ldd	r19, Y+4	; 0x04
+    1a8e:	29 30       	cpi	r18, 0x09	; 9
+    1a90:	31 05       	cpc	r19, r1
+    1a92:	5c f5       	brge	.+86     	; 0x1aea <KEYPAD_4x4_adjustKeyNumber+0x86>
+    1a94:	8b 81       	ldd	r24, Y+3	; 0x03
+    1a96:	9c 81       	ldd	r25, Y+4	; 0x04
+    1a98:	84 30       	cpi	r24, 0x04	; 4
+    1a9a:	91 05       	cpc	r25, r1
+    1a9c:	09 f4       	brne	.+2      	; 0x1aa0 <KEYPAD_4x4_adjustKeyNumber+0x3c>
+    1a9e:	59 c0       	rjmp	.+178    	; 0x1b52 <KEYPAD_4x4_adjustKeyNumber+0xee>
+    1aa0:	2b 81       	ldd	r18, Y+3	; 0x03
+    1aa2:	3c 81       	ldd	r19, Y+4	; 0x04
+    1aa4:	25 30       	cpi	r18, 0x05	; 5
+    1aa6:	31 05       	cpc	r19, r1
+    1aa8:	9c f4       	brge	.+38     	; 0x1ad0 <KEYPAD_4x4_adjustKeyNumber+0x6c>
+    1aaa:	8b 81       	ldd	r24, Y+3	; 0x03
+    1aac:	9c 81       	ldd	r25, Y+4	; 0x04
+    1aae:	82 30       	cpi	r24, 0x02	; 2
+    1ab0:	91 05       	cpc	r25, r1
+    1ab2:	09 f4       	brne	.+2      	; 0x1ab6 <KEYPAD_4x4_adjustKeyNumber+0x52>
+    1ab4:	48 c0       	rjmp	.+144    	; 0x1b46 <KEYPAD_4x4_adjustKeyNumber+0xe2>
+    1ab6:	2b 81       	ldd	r18, Y+3	; 0x03
+    1ab8:	3c 81       	ldd	r19, Y+4	; 0x04
+    1aba:	23 30       	cpi	r18, 0x03	; 3
+    1abc:	31 05       	cpc	r19, r1
+    1abe:	0c f0       	brlt	.+2      	; 0x1ac2 <KEYPAD_4x4_adjustKeyNumber+0x5e>
+    1ac0:	45 c0       	rjmp	.+138    	; 0x1b4c <KEYPAD_4x4_adjustKeyNumber+0xe8>
+    1ac2:	8b 81       	ldd	r24, Y+3	; 0x03
+    1ac4:	9c 81       	ldd	r25, Y+4	; 0x04
+    1ac6:	81 30       	cpi	r24, 0x01	; 1
+    1ac8:	91 05       	cpc	r25, r1
+    1aca:	09 f4       	brne	.+2      	; 0x1ace <KEYPAD_4x4_adjustKeyNumber+0x6a>
+    1acc:	39 c0       	rjmp	.+114    	; 0x1b40 <KEYPAD_4x4_adjustKeyNumber+0xdc>
+    1ace:	67 c0       	rjmp	.+206    	; 0x1b9e <KEYPAD_4x4_adjustKeyNumber+0x13a>
+    1ad0:	2b 81       	ldd	r18, Y+3	; 0x03
+    1ad2:	3c 81       	ldd	r19, Y+4	; 0x04
+    1ad4:	26 30       	cpi	r18, 0x06	; 6
+    1ad6:	31 05       	cpc	r19, r1
+    1ad8:	09 f4       	brne	.+2      	; 0x1adc <KEYPAD_4x4_adjustKeyNumber+0x78>
+    1ada:	41 c0       	rjmp	.+130    	; 0x1b5e <KEYPAD_4x4_adjustKeyNumber+0xfa>
+    1adc:	8b 81       	ldd	r24, Y+3	; 0x03
+    1ade:	9c 81       	ldd	r25, Y+4	; 0x04
+    1ae0:	87 30       	cpi	r24, 0x07	; 7
+    1ae2:	91 05       	cpc	r25, r1
+    1ae4:	0c f0       	brlt	.+2      	; 0x1ae8 <KEYPAD_4x4_adjustKeyNumber+0x84>
+    1ae6:	3e c0       	rjmp	.+124    	; 0x1b64 <KEYPAD_4x4_adjustKeyNumber+0x100>
+    1ae8:	37 c0       	rjmp	.+110    	; 0x1b58 <KEYPAD_4x4_adjustKeyNumber+0xf4>
+    1aea:	2b 81       	ldd	r18, Y+3	; 0x03
+    1aec:	3c 81       	ldd	r19, Y+4	; 0x04
+    1aee:	2c 30       	cpi	r18, 0x0C	; 12
+    1af0:	31 05       	cpc	r19, r1
+    1af2:	09 f4       	brne	.+2      	; 0x1af6 <KEYPAD_4x4_adjustKeyNumber+0x92>
+    1af4:	46 c0       	rjmp	.+140    	; 0x1b82 <KEYPAD_4x4_adjustKeyNumber+0x11e>
+    1af6:	8b 81       	ldd	r24, Y+3	; 0x03
+    1af8:	9c 81       	ldd	r25, Y+4	; 0x04
+    1afa:	8d 30       	cpi	r24, 0x0D	; 13
+    1afc:	91 05       	cpc	r25, r1
+    1afe:	5c f4       	brge	.+22     	; 0x1b16 <KEYPAD_4x4_adjustKeyNumber+0xb2>
+    1b00:	2b 81       	ldd	r18, Y+3	; 0x03
+    1b02:	3c 81       	ldd	r19, Y+4	; 0x04
+    1b04:	2a 30       	cpi	r18, 0x0A	; 10
+    1b06:	31 05       	cpc	r19, r1
+    1b08:	b1 f1       	breq	.+108    	; 0x1b76 <KEYPAD_4x4_adjustKeyNumber+0x112>
+    1b0a:	8b 81       	ldd	r24, Y+3	; 0x03
+    1b0c:	9c 81       	ldd	r25, Y+4	; 0x04
+    1b0e:	8b 30       	cpi	r24, 0x0B	; 11
+    1b10:	91 05       	cpc	r25, r1
+    1b12:	a4 f5       	brge	.+104    	; 0x1b7c <KEYPAD_4x4_adjustKeyNumber+0x118>
+    1b14:	2d c0       	rjmp	.+90     	; 0x1b70 <KEYPAD_4x4_adjustKeyNumber+0x10c>
+    1b16:	2b 81       	ldd	r18, Y+3	; 0x03
+    1b18:	3c 81       	ldd	r19, Y+4	; 0x04
+    1b1a:	2e 30       	cpi	r18, 0x0E	; 14
+    1b1c:	31 05       	cpc	r19, r1
+    1b1e:	b9 f1       	breq	.+110    	; 0x1b8e <KEYPAD_4x4_adjustKeyNumber+0x12a>
+    1b20:	8b 81       	ldd	r24, Y+3	; 0x03
+    1b22:	9c 81       	ldd	r25, Y+4	; 0x04
+    1b24:	8e 30       	cpi	r24, 0x0E	; 14
+    1b26:	91 05       	cpc	r25, r1
+    1b28:	7c f1       	brlt	.+94     	; 0x1b88 <KEYPAD_4x4_adjustKeyNumber+0x124>
+    1b2a:	2b 81       	ldd	r18, Y+3	; 0x03
+    1b2c:	3c 81       	ldd	r19, Y+4	; 0x04
+    1b2e:	2f 30       	cpi	r18, 0x0F	; 15
+    1b30:	31 05       	cpc	r19, r1
+    1b32:	79 f1       	breq	.+94     	; 0x1b92 <KEYPAD_4x4_adjustKeyNumber+0x12e>
+    1b34:	8b 81       	ldd	r24, Y+3	; 0x03
+    1b36:	9c 81       	ldd	r25, Y+4	; 0x04
+    1b38:	80 31       	cpi	r24, 0x10	; 16
+    1b3a:	91 05       	cpc	r25, r1
+    1b3c:	69 f1       	breq	.+90     	; 0x1b98 <KEYPAD_4x4_adjustKeyNumber+0x134>
+    1b3e:	2f c0       	rjmp	.+94     	; 0x1b9e <KEYPAD_4x4_adjustKeyNumber+0x13a>
 	{
 		case 1: keypad_button = 7;
-    1b32:	87 e0       	ldi	r24, 0x07	; 7
-    1b34:	89 83       	std	Y+1, r24	; 0x01
-    1b36:	2e c0       	rjmp	.+92     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b40:	87 e0       	ldi	r24, 0x07	; 7
+    1b42:	89 83       	std	Y+1, r24	; 0x01
+    1b44:	2e c0       	rjmp	.+92     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 2: keypad_button = 8;
-    1b38:	88 e0       	ldi	r24, 0x08	; 8
-    1b3a:	89 83       	std	Y+1, r24	; 0x01
-    1b3c:	2b c0       	rjmp	.+86     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b46:	88 e0       	ldi	r24, 0x08	; 8
+    1b48:	89 83       	std	Y+1, r24	; 0x01
+    1b4a:	2b c0       	rjmp	.+86     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 3: keypad_button = 9;
-    1b3e:	89 e0       	ldi	r24, 0x09	; 9
-    1b40:	89 83       	std	Y+1, r24	; 0x01
-    1b42:	28 c0       	rjmp	.+80     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b4c:	89 e0       	ldi	r24, 0x09	; 9
+    1b4e:	89 83       	std	Y+1, r24	; 0x01
+    1b50:	28 c0       	rjmp	.+80     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 4: keypad_button = '%'; // ASCII Code of %
-    1b44:	85 e2       	ldi	r24, 0x25	; 37
-    1b46:	89 83       	std	Y+1, r24	; 0x01
-    1b48:	25 c0       	rjmp	.+74     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b52:	85 e2       	ldi	r24, 0x25	; 37
+    1b54:	89 83       	std	Y+1, r24	; 0x01
+    1b56:	25 c0       	rjmp	.+74     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 5: keypad_button = 4;
-    1b4a:	84 e0       	ldi	r24, 0x04	; 4
-    1b4c:	89 83       	std	Y+1, r24	; 0x01
-    1b4e:	22 c0       	rjmp	.+68     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b58:	84 e0       	ldi	r24, 0x04	; 4
+    1b5a:	89 83       	std	Y+1, r24	; 0x01
+    1b5c:	22 c0       	rjmp	.+68     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 6: keypad_button = 5;
-    1b50:	85 e0       	ldi	r24, 0x05	; 5
-    1b52:	89 83       	std	Y+1, r24	; 0x01
-    1b54:	1f c0       	rjmp	.+62     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b5e:	85 e0       	ldi	r24, 0x05	; 5
+    1b60:	89 83       	std	Y+1, r24	; 0x01
+    1b62:	1f c0       	rjmp	.+62     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 7: keypad_button = 6;
-    1b56:	86 e0       	ldi	r24, 0x06	; 6
-    1b58:	89 83       	std	Y+1, r24	; 0x01
-    1b5a:	1c c0       	rjmp	.+56     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b64:	86 e0       	ldi	r24, 0x06	; 6
+    1b66:	89 83       	std	Y+1, r24	; 0x01
+    1b68:	1c c0       	rjmp	.+56     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 8: keypad_button = '*'; /* ASCII Code of '*' */
-    1b5c:	8a e2       	ldi	r24, 0x2A	; 42
-    1b5e:	89 83       	std	Y+1, r24	; 0x01
-    1b60:	19 c0       	rjmp	.+50     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b6a:	8a e2       	ldi	r24, 0x2A	; 42
+    1b6c:	89 83       	std	Y+1, r24	; 0x01
+    1b6e:	19 c0       	rjmp	.+50     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 9: keypad_button = 1;
-    1b62:	81 e0       	ldi	r24, 0x01	; 1
-    1b64:	89 83       	std	Y+1, r24	; 0x01
-    1b66:	16 c0       	rjmp	.+44     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b70:	81 e0       	ldi	r24, 0x01	; 1
+    1b72:	89 83       	std	Y+1, r24	; 0x01
+    1b74:	16 c0       	rjmp	.+44     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 10: keypad_button = 2;
-    1b68:	82 e0       	ldi	r24, 0x02	; 2
-    1b6a:	89 83       	std	Y+1, r24	; 0x01
-    1b6c:	13 c0       	rjmp	.+38     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b76:	82 e0       	ldi	r24, 0x02	; 2
+    1b78:	89 83       	std	Y+1, r24	; 0x01
+    1b7a:	13 c0       	rjmp	.+38     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 11: keypad_button = 3;
-    1b6e:	83 e0       	ldi	r24, 0x03	; 3
-    1b70:	89 83       	std	Y+1, r24	; 0x01
-    1b72:	10 c0       	rjmp	.+32     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b7c:	83 e0       	ldi	r24, 0x03	; 3
+    1b7e:	89 83       	std	Y+1, r24	; 0x01
+    1b80:	10 c0       	rjmp	.+32     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 12: keypad_button = '-'; /* ASCII Code of '-' */
-    1b74:	8d e2       	ldi	r24, 0x2D	; 45
-    1b76:	89 83       	std	Y+1, r24	; 0x01
-    1b78:	0d c0       	rjmp	.+26     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b82:	8d e2       	ldi	r24, 0x2D	; 45
+    1b84:	89 83       	std	Y+1, r24	; 0x01
+    1b86:	0d c0       	rjmp	.+26     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 13: keypad_button = 13;  /* ASCII of Enter */
-    1b7a:	8d e0       	ldi	r24, 0x0D	; 13
-    1b7c:	89 83       	std	Y+1, r24	; 0x01
-    1b7e:	0a c0       	rjmp	.+20     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b88:	8d e0       	ldi	r24, 0x0D	; 13
+    1b8a:	89 83       	std	Y+1, r24	; 0x01
+    1b8c:	0a c0       	rjmp	.+20     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 14: keypad_button = 0;
-    1b80:	19 82       	std	Y+1, r1	; 0x01
-    1b82:	08 c0       	rjmp	.+16     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b8e:	19 82       	std	Y+1, r1	; 0x01
+    1b90:	08 c0       	rjmp	.+16     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 15: keypad_button = '='; /* ASCII Code of '=' */
-    1b84:	8d e3       	ldi	r24, 0x3D	; 61
-    1b86:	89 83       	std	Y+1, r24	; 0x01
-    1b88:	05 c0       	rjmp	.+10     	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b92:	8d e3       	ldi	r24, 0x3D	; 61
+    1b94:	89 83       	std	Y+1, r24	; 0x01
+    1b96:	05 c0       	rjmp	.+10     	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		case 16: keypad_button = '+'; /* ASCII Code of '+' */
-    1b8a:	8b e2       	ldi	r24, 0x2B	; 43
-    1b8c:	89 83       	std	Y+1, r24	; 0x01
-    1b8e:	02 c0       	rjmp	.+4      	; 0x1b94 <KEYPAD_4x4_adjustKeyNumber+0x13e>
+    1b98:	8b e2       	ldi	r24, 0x2B	; 43
+    1b9a:	89 83       	std	Y+1, r24	; 0x01
+    1b9c:	02 c0       	rjmp	.+4      	; 0x1ba2 <KEYPAD_4x4_adjustKeyNumber+0x13e>
 				break;
 		default: keypad_button = 255;
-    1b90:	8f ef       	ldi	r24, 0xFF	; 255
-    1b92:	89 83       	std	Y+1, r24	; 0x01
+    1b9e:	8f ef       	ldi	r24, 0xFF	; 255
+    1ba0:	89 83       	std	Y+1, r24	; 0x01
 				break;
 	}
 	return keypad_button;
-    1b94:	89 81       	ldd	r24, Y+1	; 0x01
+    1ba2:	89 81       	ldd	r24, Y+1	; 0x01
 }
-    1b96:	0f 90       	pop	r0
-    1b98:	0f 90       	pop	r0
-    1b9a:	0f 90       	pop	r0
-    1b9c:	0f 90       	pop	r0
-    1b9e:	cf 91       	pop	r28
-    1ba0:	df 91       	pop	r29
-    1ba2:	08 95       	ret
+    1ba4:	0f 90       	pop	r0
+    1ba6:	0f 90       	pop	r0
+    1ba8:	0f 90       	pop	r0
+    1baa:	0f 90       	pop	r0
+    1bac:	cf 91       	pop	r28
+    1bae:	df 91       	pop	r29
+    1bb0:	08 95       	ret
 
-00001ba4 <APPLICATION_setup>:
+00001bb2 <APPLICATION_setup>:
 /*
  * Description:
  * this function is reponsable to inizialize the hardware
  */
 
 void APPLICATION_setup(){
-    1ba4:	df 93       	push	r29
-    1ba6:	cf 93       	push	r28
-    1ba8:	cd b7       	in	r28, 0x3d	; 61
-    1baa:	de b7       	in	r29, 0x3e	; 62
+    1bb2:	df 93       	push	r29
+    1bb4:	cf 93       	push	r28
+    1bb6:	cd b7       	in	r28, 0x3d	; 61
+    1bb8:	de b7       	in	r29, 0x3e	; 62
 	MULTIPLEXED7SEG_init();
-    1bac:	0e 94 10 0c 	call	0x1820	; 0x1820 <MULTIPLEXED7SEG_init>
+    1bba:	0e 94 15 0c 	call	0x182a	; 0x182a <MULTIPLEXED7SEG_init>
 	KEYPAD_init();
-    1bb0:	0e 94 35 0c 	call	0x186a	; 0x186a <KEYPAD_init>
+    1bbe:	0e 94 3a 0c 	call	0x1874	; 0x1874 <KEYPAD_init>
 }
-    1bb4:	cf 91       	pop	r28
-    1bb6:	df 91       	pop	r29
-    1bb8:	08 95       	ret
+    1bc2:	cf 91       	pop	r28
+    1bc4:	df 91       	pop	r29
+    1bc6:	08 95       	ret
 
-00001bba <APPLICATION_loop>:
+00001bc8 <APPLICATION_loop>:
 /*
  * Description:
  * this is the main loop of the application
  */
 
 void APPLICATION_loop(){
-    1bba:	df 93       	push	r29
-    1bbc:	cf 93       	push	r28
-    1bbe:	cd b7       	in	r28, 0x3d	; 61
-    1bc0:	de b7       	in	r29, 0x3e	; 62
+    1bc8:	df 93       	push	r29
+    1bca:	cf 93       	push	r28
+    1bcc:	cd b7       	in	r28, 0x3d	; 61
+    1bce:	de b7       	in	r29, 0x3e	; 62
 	MULTIPLEXED7SEG_displayNumber(KEYPAD_getPressedKey());
-    1bc2:	0e 94 64 0c 	call	0x18c8	; 0x18c8 <KEYPAD_getPressedKey>
-    1bc6:	0e 94 00 0c 	call	0x1800	; 0x1800 <MULTIPLEXED7SEG_displayNumber>
-}
-    1bca:	cf 91       	pop	r28
-    1bcc:	df 91       	pop	r29
-    1bce:	08 95       	ret
+    1bd0:	0e 94 69 0c 	call	0x18d2	; 0x18d2 <KEYPAD_getPressedKey>
+    1bd4:	0e 94 05 0c 	call	0x180a	; 0x180a <MULTIPLEXED7SEG_displayNumber>
+//	MULTIPLEXED7SEG_displayNumber(99);
 
-00001bd0 <togelLed>:
+}
+    1bd8:	cf 91       	pop	r28
+    1bda:	df 91       	pop	r29
+    1bdc:	08 95       	ret
+
+00001bde <togelLed>:
 
 #include "Application/application.h"
 #include <avr/io.h>
 #include "MCAL/Timer2/timer2.h"
 #include <avr/interrupt.h>
 void togelLed() {
-    1bd0:	df 93       	push	r29
-    1bd2:	cf 93       	push	r28
-    1bd4:	cd b7       	in	r28, 0x3d	; 61
-    1bd6:	de b7       	in	r29, 0x3e	; 62
+    1bde:	df 93       	push	r29
+    1be0:	cf 93       	push	r28
+    1be2:	cd b7       	in	r28, 0x3d	; 61
+    1be4:	de b7       	in	r29, 0x3e	; 62
 	PORTB ^= (1 << 2);
-    1bd8:	a8 e3       	ldi	r26, 0x38	; 56
-    1bda:	b0 e0       	ldi	r27, 0x00	; 0
-    1bdc:	e8 e3       	ldi	r30, 0x38	; 56
-    1bde:	f0 e0       	ldi	r31, 0x00	; 0
-    1be0:	90 81       	ld	r25, Z
-    1be2:	84 e0       	ldi	r24, 0x04	; 4
-    1be4:	89 27       	eor	r24, r25
-    1be6:	8c 93       	st	X, r24
+    1be6:	a8 e3       	ldi	r26, 0x38	; 56
+    1be8:	b0 e0       	ldi	r27, 0x00	; 0
+    1bea:	e8 e3       	ldi	r30, 0x38	; 56
+    1bec:	f0 e0       	ldi	r31, 0x00	; 0
+    1bee:	90 81       	ld	r25, Z
+    1bf0:	84 e0       	ldi	r24, 0x04	; 4
+    1bf2:	89 27       	eor	r24, r25
+    1bf4:	8c 93       	st	X, r24
 
 }
-    1be8:	cf 91       	pop	r28
-    1bea:	df 91       	pop	r29
-    1bec:	08 95       	ret
+    1bf6:	cf 91       	pop	r28
+    1bf8:	df 91       	pop	r29
+    1bfa:	08 95       	ret
 
-00001bee <main>:
+00001bfc <main>:
 
 int main(void) {
-    1bee:	df 93       	push	r29
-    1bf0:	cf 93       	push	r28
-    1bf2:	cd b7       	in	r28, 0x3d	; 61
-    1bf4:	de b7       	in	r29, 0x3e	; 62
+    1bfc:	df 93       	push	r29
+    1bfe:	cf 93       	push	r28
+    1c00:	cd b7       	in	r28, 0x3d	; 61
+    1c02:	de b7       	in	r29, 0x3e	; 62
 	APPLICATION_setup();
-    1bf6:	0e 94 d2 0d 	call	0x1ba4	; 0x1ba4 <APPLICATION_setup>
+    1c04:	0e 94 d9 0d 	call	0x1bb2	; 0x1bb2 <APPLICATION_setup>
 	while (1) {
 		APPLICATION_loop();
-    1bfa:	0e 94 dd 0d 	call	0x1bba	; 0x1bba <APPLICATION_loop>
-    1bfe:	fd cf       	rjmp	.-6      	; 0x1bfa <main+0xc>
+    1c08:	0e 94 e4 0d 	call	0x1bc8	; 0x1bc8 <APPLICATION_loop>
+    1c0c:	fd cf       	rjmp	.-6      	; 0x1c08 <main+0xc>
 
-00001c00 <__udivmodqi4>:
-    1c00:	99 1b       	sub	r25, r25
-    1c02:	79 e0       	ldi	r23, 0x09	; 9
-    1c04:	04 c0       	rjmp	.+8      	; 0x1c0e <__udivmodqi4_ep>
+00001c0e <__udivmodqi4>:
+    1c0e:	99 1b       	sub	r25, r25
+    1c10:	79 e0       	ldi	r23, 0x09	; 9
+    1c12:	04 c0       	rjmp	.+8      	; 0x1c1c <__udivmodqi4_ep>
 
-00001c06 <__udivmodqi4_loop>:
-    1c06:	99 1f       	adc	r25, r25
-    1c08:	96 17       	cp	r25, r22
-    1c0a:	08 f0       	brcs	.+2      	; 0x1c0e <__udivmodqi4_ep>
-    1c0c:	96 1b       	sub	r25, r22
+00001c14 <__udivmodqi4_loop>:
+    1c14:	99 1f       	adc	r25, r25
+    1c16:	96 17       	cp	r25, r22
+    1c18:	08 f0       	brcs	.+2      	; 0x1c1c <__udivmodqi4_ep>
+    1c1a:	96 1b       	sub	r25, r22
 
-00001c0e <__udivmodqi4_ep>:
-    1c0e:	88 1f       	adc	r24, r24
-    1c10:	7a 95       	dec	r23
-    1c12:	c9 f7       	brne	.-14     	; 0x1c06 <__udivmodqi4_loop>
-    1c14:	80 95       	com	r24
-    1c16:	08 95       	ret
+00001c1c <__udivmodqi4_ep>:
+    1c1c:	88 1f       	adc	r24, r24
+    1c1e:	7a 95       	dec	r23
+    1c20:	c9 f7       	brne	.-14     	; 0x1c14 <__udivmodqi4_loop>
+    1c22:	80 95       	com	r24
+    1c24:	08 95       	ret
 
-00001c18 <__prologue_saves__>:
-    1c18:	2f 92       	push	r2
-    1c1a:	3f 92       	push	r3
-    1c1c:	4f 92       	push	r4
-    1c1e:	5f 92       	push	r5
-    1c20:	6f 92       	push	r6
-    1c22:	7f 92       	push	r7
-    1c24:	8f 92       	push	r8
-    1c26:	9f 92       	push	r9
-    1c28:	af 92       	push	r10
-    1c2a:	bf 92       	push	r11
-    1c2c:	cf 92       	push	r12
-    1c2e:	df 92       	push	r13
-    1c30:	ef 92       	push	r14
-    1c32:	ff 92       	push	r15
-    1c34:	0f 93       	push	r16
-    1c36:	1f 93       	push	r17
-    1c38:	cf 93       	push	r28
-    1c3a:	df 93       	push	r29
-    1c3c:	cd b7       	in	r28, 0x3d	; 61
-    1c3e:	de b7       	in	r29, 0x3e	; 62
-    1c40:	ca 1b       	sub	r28, r26
-    1c42:	db 0b       	sbc	r29, r27
-    1c44:	0f b6       	in	r0, 0x3f	; 63
-    1c46:	f8 94       	cli
-    1c48:	de bf       	out	0x3e, r29	; 62
-    1c4a:	0f be       	out	0x3f, r0	; 63
-    1c4c:	cd bf       	out	0x3d, r28	; 61
-    1c4e:	09 94       	ijmp
+00001c26 <__prologue_saves__>:
+    1c26:	2f 92       	push	r2
+    1c28:	3f 92       	push	r3
+    1c2a:	4f 92       	push	r4
+    1c2c:	5f 92       	push	r5
+    1c2e:	6f 92       	push	r6
+    1c30:	7f 92       	push	r7
+    1c32:	8f 92       	push	r8
+    1c34:	9f 92       	push	r9
+    1c36:	af 92       	push	r10
+    1c38:	bf 92       	push	r11
+    1c3a:	cf 92       	push	r12
+    1c3c:	df 92       	push	r13
+    1c3e:	ef 92       	push	r14
+    1c40:	ff 92       	push	r15
+    1c42:	0f 93       	push	r16
+    1c44:	1f 93       	push	r17
+    1c46:	cf 93       	push	r28
+    1c48:	df 93       	push	r29
+    1c4a:	cd b7       	in	r28, 0x3d	; 61
+    1c4c:	de b7       	in	r29, 0x3e	; 62
+    1c4e:	ca 1b       	sub	r28, r26
+    1c50:	db 0b       	sbc	r29, r27
+    1c52:	0f b6       	in	r0, 0x3f	; 63
+    1c54:	f8 94       	cli
+    1c56:	de bf       	out	0x3e, r29	; 62
+    1c58:	0f be       	out	0x3f, r0	; 63
+    1c5a:	cd bf       	out	0x3d, r28	; 61
+    1c5c:	09 94       	ijmp
 
-00001c50 <__epilogue_restores__>:
-    1c50:	2a 88       	ldd	r2, Y+18	; 0x12
-    1c52:	39 88       	ldd	r3, Y+17	; 0x11
-    1c54:	48 88       	ldd	r4, Y+16	; 0x10
-    1c56:	5f 84       	ldd	r5, Y+15	; 0x0f
-    1c58:	6e 84       	ldd	r6, Y+14	; 0x0e
-    1c5a:	7d 84       	ldd	r7, Y+13	; 0x0d
-    1c5c:	8c 84       	ldd	r8, Y+12	; 0x0c
-    1c5e:	9b 84       	ldd	r9, Y+11	; 0x0b
-    1c60:	aa 84       	ldd	r10, Y+10	; 0x0a
-    1c62:	b9 84       	ldd	r11, Y+9	; 0x09
-    1c64:	c8 84       	ldd	r12, Y+8	; 0x08
-    1c66:	df 80       	ldd	r13, Y+7	; 0x07
-    1c68:	ee 80       	ldd	r14, Y+6	; 0x06
-    1c6a:	fd 80       	ldd	r15, Y+5	; 0x05
-    1c6c:	0c 81       	ldd	r16, Y+4	; 0x04
-    1c6e:	1b 81       	ldd	r17, Y+3	; 0x03
-    1c70:	aa 81       	ldd	r26, Y+2	; 0x02
-    1c72:	b9 81       	ldd	r27, Y+1	; 0x01
-    1c74:	ce 0f       	add	r28, r30
-    1c76:	d1 1d       	adc	r29, r1
-    1c78:	0f b6       	in	r0, 0x3f	; 63
-    1c7a:	f8 94       	cli
-    1c7c:	de bf       	out	0x3e, r29	; 62
-    1c7e:	0f be       	out	0x3f, r0	; 63
-    1c80:	cd bf       	out	0x3d, r28	; 61
-    1c82:	ed 01       	movw	r28, r26
-    1c84:	08 95       	ret
+00001c5e <__epilogue_restores__>:
+    1c5e:	2a 88       	ldd	r2, Y+18	; 0x12
+    1c60:	39 88       	ldd	r3, Y+17	; 0x11
+    1c62:	48 88       	ldd	r4, Y+16	; 0x10
+    1c64:	5f 84       	ldd	r5, Y+15	; 0x0f
+    1c66:	6e 84       	ldd	r6, Y+14	; 0x0e
+    1c68:	7d 84       	ldd	r7, Y+13	; 0x0d
+    1c6a:	8c 84       	ldd	r8, Y+12	; 0x0c
+    1c6c:	9b 84       	ldd	r9, Y+11	; 0x0b
+    1c6e:	aa 84       	ldd	r10, Y+10	; 0x0a
+    1c70:	b9 84       	ldd	r11, Y+9	; 0x09
+    1c72:	c8 84       	ldd	r12, Y+8	; 0x08
+    1c74:	df 80       	ldd	r13, Y+7	; 0x07
+    1c76:	ee 80       	ldd	r14, Y+6	; 0x06
+    1c78:	fd 80       	ldd	r15, Y+5	; 0x05
+    1c7a:	0c 81       	ldd	r16, Y+4	; 0x04
+    1c7c:	1b 81       	ldd	r17, Y+3	; 0x03
+    1c7e:	aa 81       	ldd	r26, Y+2	; 0x02
+    1c80:	b9 81       	ldd	r27, Y+1	; 0x01
+    1c82:	ce 0f       	add	r28, r30
+    1c84:	d1 1d       	adc	r29, r1
+    1c86:	0f b6       	in	r0, 0x3f	; 63
+    1c88:	f8 94       	cli
+    1c8a:	de bf       	out	0x3e, r29	; 62
+    1c8c:	0f be       	out	0x3f, r0	; 63
+    1c8e:	cd bf       	out	0x3d, r28	; 61
+    1c90:	ed 01       	movw	r28, r26
+    1c92:	08 95       	ret
 
-00001c86 <_exit>:
-    1c86:	f8 94       	cli
+00001c94 <_exit>:
+    1c94:	f8 94       	cli
 
-00001c88 <__stop_program>:
-    1c88:	ff cf       	rjmp	.-2      	; 0x1c88 <__stop_program>
+00001c96 <__stop_program>:
+    1c96:	ff cf       	rjmp	.-2      	; 0x1c96 <__stop_program>

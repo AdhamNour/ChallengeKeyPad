@@ -103,6 +103,7 @@ uint8 KEYPAD_getPressedKey(void){
 				GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID,KEYPAD_FIRST_ROW_PIN_ID+row,PIN_INPUT);
 				_delay_ms(5); /* Add small delay to fix CPU load issue in proteus */
 			}
+	return 255;
 }
 
 #ifndef STANDARD_KEYPAD

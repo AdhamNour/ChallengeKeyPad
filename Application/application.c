@@ -32,4 +32,6 @@ void APPLICATION_setup(){
 
 void APPLICATION_loop(){
 	MULTIPLEXED7SEG_displayNumber(KEYPAD_getPressedKey());
+//	MULTIPLEXED7SEG_displayNumber(99);
+
 }
