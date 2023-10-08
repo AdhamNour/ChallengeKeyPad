@@ -13,7 +13,7 @@
 #include "application.h"
 #include "../HAL/Multiplixed7Seg/multiplexed7seg.h"
 #include "../HAL/Keypad/Keypad.h"
-
+#include "avr/io.h"
 
 /*
  * Description:
@@ -23,6 +23,8 @@
 void APPLICATION_setup(){
 	MULTIPLEXED7SEG_init();
 	KEYPAD_init();
+	DDRA = 0xFF;
+	PORTA=0xFF;
 }
 
 /*
@@ -31,7 +33,10 @@ void APPLICATION_setup(){
  */
 
 void APPLICATION_loop(){
-	MULTIPLEXED7SEG_displayNumber(KEYPAD_getPressedKey());
-//	MULTIPLEXED7SEG_displayNumber(99);
+
+	uint8 x = KEYPAD_getPressedKey();//	MULTIPLEXED7SEG_displayNumber(99);
+	if(x<=16){
+		PORTA =x;
+	}
 
 }
